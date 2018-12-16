@@ -1,0 +1,16 @@
+<div class="circle-btn">
+  <div class="icon_cercle background-icon <%= activity[:user_activity_id] ? 'blue-background' : "" %>" style="background-image: url('<%= image_path activity[:icon] %>')">
+  </div>
+  <p class="<%= activity[:user_activity_id] ? 'blue-text' : "" %>"><%= truncate(activity[:title], :length => 20)%></p>
+</div>
+<% user_activity = UserActivity.where(user: @user, activity_id: activity[:id]).first %>
+<% if user_activity.present? %>
+  <div class="stars">
+    <% for i in 1..user_activity.level %>
+      <i class="fa fa-star blue" aria-hidden="true"></i>
+    <% end %>
+    <% for i in 1..(5-user_activity.level) %>
+      <i class="far fa-star blue" aria-hidden="true"></i>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<div id="modal-activity">
+
+</div>
+<h2>Selectionnez vos activités favorites :</h2>
+<div class="full-tabs">
+
+  <ul class="nav nav-pills" id="nav-tab" role="tablist">
+    <%  @categories.each do |category| %>
+      <li class="<%= category.title == "Sport" ? 'active' : ''  %> cp-tab", role="presentation">
+        <a data-toggle="tab" href="#<%= 'nav-' + category.title %>" role="tab" aria-controls="<%= 'nav-' + category.title %>"><%= category.title %> (<%= @activities.select {|activity| activity[:category_id] == category.id } .count %>)</a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="tab-content" id="nav-tabContent">
+    <%  @categories.each do |category| %>
+      <div class="tab-pane <%= category.title == "Sport" ? 'active' : ''  %>" id="<%= 'nav-' + category.title %>" role="tabpanel" aria-labelledby="<%= 'nav-' + category.title %>-tab">
+        <div class="row">
+          <% @activities.select {|activity| activity[:category_id] == category.id }.each do |activity| %>
+            <div class="col-lg-2 col-xs-6 col-sm-4" style="height: 151.25px; text-align: center;">
+              <%= link_to new_user_user_activity_path(@user, :act => activity[:id]),  {:remote => true, class:"activity-card"} do %>
+                  <%= render 'activities/show', user: @user, activity: activity %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+

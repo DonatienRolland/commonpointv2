@@ -1,0 +1,64 @@
+<div id="form_<%= @act_id %>" class="modal-js">
+  <div class="modal-content size-modal">
+      <a class="close cross abs-right-top" id="close_activity">+</a>
+    <div class="row" style="width: 100%; padding: 10px;">
+      <div class="scroll-div <%= @activity.user_activities.size > 0 ? "col-lg-7 col-sm-7" : "hidden" %>">
+        <div class="title-content">
+          <h3 style="margin: auto;"><strong> <%= pluralize @activity.user_activities.size, "Participant" %></strong></h3>
+        </div>
+        <div class="scroll-div" style="max-height: 350px">
+          <% @activity.user_activities.each do |user_activity| %>
+            <div style="padding: 3px;">
+              <!-- <#%= render 'shared/avatar_name_stars', user: user_activity.user, activity: @activity %> -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="<%= @activity.user_activities.size > 0 ? "col-lg-5 col-sm-5" : "col-lg-offset-2 col-lg-8 col-sm-12" %>">
+        <div class="circle-btn">
+          <div class="icon_cercle background-icon" style="background-image: url('<%= image_path @activity.icon? ? @activity.icon? : @no_icon %>')">
+          </div>
+          <h3><%= @activity.title %></h3>
+        </div>
+
+      <% if @user_activity != nil && @user_activity.id %>
+        <%= simple_form_for(@user_activity, remote: false, authenticity_token: true) do |f| %>
+          <%= f.input :activity_id, input_html: { value: @act_id }, as: :hidden  %>
+          <div style="padding: 15px;">
+            <p>Ton niveau:</p>
+            <p id="levelActivity"></p>
+            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
+          </div>
+          <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..."  %>
+          <div class="form-action">
+            <%= button_tag(type: "submit", class: "form-button circle-btn green-color form-button-lg", style:"background-color: white;") do %>
+              <i class="fas fa-plus"></i> Modifier
+            <% end %>
+            <div class="form-button circle-btn red-color form-button-lg">
+              <%= link_to user_activity_path( @user_activity), method: :delete, remote: false do %>
+                <i class="fas fa-minus"></i> Retirer
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+
+        <%= simple_form_for([ @user, UserActivity.new ], remote: false, authenticity_token: true) do |f| %>
+          <%= f.input :activity_id, input_html: { value: @act_id }, as: :hidden  %>
+          <div style="padding: 15px;">
+            <p>Ton niveau:</p>
+            <p id="levelActivity"></p>
+            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
+          </div>
+          <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..." %>
+          <div class="form-action">
+            <%= button_tag(type: "submit", class: "form-button circle-btn green-color form-button-lg", style:"background-color: white;") do %>
+              <i class="fas fa-plus"></i> Ajouter
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

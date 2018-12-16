@@ -1,0 +1,61 @@
+// .horizontale-scrolling {
+//   display: flex;
+//   flex-wrap: nowrap;
+//   overflow-x: auto;
+
+//   .activity-card {
+//     flex: 60px ;
+//   }
+// }
+
+
+.horizontale-scrolling {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .activity-card {
+    display: inline-block;
+    width: 146px;
+    margin: 3px;
+  }
+}
+
+.form-label {
+  font-size: 12px;
+  color: $cp;
+  margin: 0;
+  display: block;
+  opacity: 1;
+  -webkit-transition: .333s ease top, .333s ease opacity;
+  transition: .333s ease top, .333s ease opacity;
+}
+.form-control {
+  border-radius: 0;
+  border-color: #ccc;
+  border-width: 0 0 2px 0;
+  border-style: none none solid none;
+  box-shadow: none;
+  background-color: #fff0 !important;
+}
+.form-control:focus {
+  box-shadow: none;
+  border-color: $cp;
+}
+.btn-start-order {
+  background: 0 0 #fff0;
+  border: 1px solid #2f323a;
+  border-radius: 3px;
+  color: #2f323a;
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  line-height: inherit;
+  margin: 30px 0;
+  padding: 10px 50px;
+  text-transform: uppercase;
+  transition: all 0.25s ease 0s;
+}
+.btn-start-order:hover,.btn-start-order:active, .btn-start-order:focus {
+  border-color: $cp;
+  color: $cp;
+}

@@ -1,0 +1,116 @@
+.circle-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+  justify-content: center;
+}
+
+// .icon_activity {
+//   width: 60px;
+// }
+.background-icon {
+  width: 60px;
+  height: 60px;
+  margin: 5px 0;
+}
+
+.icon_cercle {
+  border-radius: 50%;
+  background-size: cover !important;
+  background-position: center;
+}
+
+
+.blue-background {
+  background-color: $light-blue !important;
+}
+
+.blue-text {
+  color: $light-blue !important;
+}
+
+// tab
+.cp-tab {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: $cp;
+  flex: 20%;
+  a {
+    color: $white;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    i {
+      margin-right: 3px;
+    }
+  }
+  h4 {
+    color: $white;
+    font-size: 0.8em;
+  }
+}
+.nav-pills > li:hover a {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: $cp !important;
+  h4 {
+    border-bottom: 2px solid $white;
+  }
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  background-color: $cp;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  color: $white;
+  h4 {
+    border-bottom: 2px solid $white;
+  }
+}
+.nav-pills {
+  display: flex;
+  width: 260px;
+}
+
+.tab-pane {
+  background-color: $white;
+}
+.tab-content > .active {
+  display: block;
+  height: 70vh;
+  width: 100%;
+  overflow-x: auto;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.stars {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.blue {
+  color: $light-blue;
+}
+.activity-card {
+  margin: 7% 3%;
+  display: block;
+  padding: 7px;
+  transition: 0.15s;
+  border-radius: 2px;
+  p {
+    color: $cp;
+    margin: 0;
+  }
+  &:hover {
+    text-decoration: none;
+    box-shadow: 0px 0px 4px $cp;
+    cursor: pointer;
+  }
+}
+
+

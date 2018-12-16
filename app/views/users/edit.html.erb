@@ -1,0 +1,40 @@
+
+<%= simple_form_for (@user) do |f| %>
+  <div class="row">
+    <div class="col-sm-4 col-xs-6">
+      <label for="picture-upload">
+        <img src="<%= @user.avatar? ? @user.avatar_url : "https://via.placeholder.com/150" %>" alt="" id="preview" class="avatar-lg">
+      </label>
+      <%= f.file_field :avatar, id:"picture-upload", class:'hidden' %>
+    </div>
+    <div class="col-sm-8">
+      <div class="form-group">
+        <%= f.label :prenom, label:'Prénom', class:"form-label", required: false %>
+        <%= f.input :prenom, label:false, placeholder: "Prénom", class:"form-control", tabindex:"1" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :nom, label:'Nom', class:"form-label", required: false %>
+        <%= f.input :nom, label:false, placeholder: "Nom", class:"form-control", tabindex:"2" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :telephone, label:'Téléphone', class:"form-label", required: false %>
+        <%= f.input :telephone, label:false, placeholder: "Téléphone", class:"form-control", tabindex:"1" %>
+      </div>
+      <div class="text-center">
+        <%= f.button :submit, "Modifier", class:"btn btn-start-order" %>
+      </div>
+      <label for="">Mes activités favorites</label>
+      <div class="horizontale-scrolling">
+        <% @user_activities.each do |user_activity| %>
+          <div class="activity-card " style="height: 151.25px;">
+            <%= render 'activities/show', user: @user, activity: user_activity %>
+          </div>
+        <% end %>
+      </div>
+      <div class="text-center">
+        <%= link_to 'Ajouter des activités', user_activities_path(@user), class:"btn btn-start-order" %>
+      </div>
+
+    </div>
+  </div>
+<% end %>

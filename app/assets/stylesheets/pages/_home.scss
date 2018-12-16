@@ -1,1 +1,21 @@
 // Specific CSS for your home-page
+#main-container {
+  min-height: calc(100vh - 70px);
+  width: 70%;
+  margin: auto;
+  padding: 1% 0;
+  // background: #d6d1d1;
+}
+
+@media(max-width: 720px) {
+  #main-container {
+   width: 100%;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1100px) {
+  #main-container {
+   width: 95%;
+  }
+}
+

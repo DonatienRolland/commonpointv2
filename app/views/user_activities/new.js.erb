@@ -1,0 +1,46 @@
+function addForm(formHTML) {
+  const modalWindow = document.getElementById('modal-activity');
+  modalWindow.innerHTML = ""
+  modalWindow.innerHTML = formHTML
+}
+
+function closeModal(){
+  const close = document.getElementById('close_activity')
+  const modalWindow = document.getElementById('modal-activity');
+  close.addEventListener('click', function(){
+    modalWindow.innerHTML = ""
+  })
+}
+function addStringToValue(){
+  var mySliderMin = document.getElementById("level_value_activity");
+  var outputMin = document.getElementById("levelActivity");
+
+  addString(mySliderMin)
+
+  mySliderMin.oninput = function() {
+    addString(this)
+  }
+  function addString(arg){
+    if (arg.value == 1) {
+      outputMin.innerHTML = "1 - J'ai des bases"
+    } else if (arg.value == 2) {
+      outputMin.innerHTML = "2 - Bon"
+    } else if (arg.value == 3) {
+      outputMin.innerHTML = "3 - Je suis très bon"
+    } else if (arg.value == 4) {
+      outputMin.innerHTML = "4 - Je suis pro"
+    } else if (arg.value == 5) {
+      outputMin.innerHTML = "5 - Médails d'or au JO"
+    }
+  }
+}
+
+
+
+addForm('<%= j render "user_activities/new" %> ');
+addStringToValue();
+closeModal();
+
+
+
+
