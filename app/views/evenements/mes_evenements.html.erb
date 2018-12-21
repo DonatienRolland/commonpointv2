@@ -1,0 +1,26 @@
+
+<h2>Vous venez de créer <%= pluralize @evenements.size, "Événement" %> </h2>
+<div class="cards row">
+  <% @evenements.each do |evenement| %>
+    <div class="card padding-blocks <%= @evenements.count > 2 ? 'col-lg-4' : 'col-lg-6' %> ">
+      <div class="dimension-onglet">
+        <h3 class="title-onglet"><%= evenement.activity_title %></h3>
+      </div>
+      <div class="background-white">
+        <p><%= evenement.day_month_hour %></p>
+        <p><%= evenement.full ? "Complet" : "Pas Complet" %></p>
+        <p><strong><%= Participant.where(evenement: evenement).count %></strong> sur <strong><%= evenement.participants.count %></strong> d'invitié pour ce point</p>
+        <p> Matériel: <strong> <%= Materiel.where(evenement: evenement).count %></strong></p>
+        <%= link_to evenement_path(evenement) do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+        <%= link_to edit_evenement_path(evenement) do %>
+          <i class="far fa-edit"></i>
+        <% end %>
+        <%= link_to evenement_path(evenement),  method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class="far fa-trash-alt"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

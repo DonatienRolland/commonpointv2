@@ -1,0 +1,11 @@
+<div id="materiels" class="background-white set-materiel">
+  <%= f.simple_fields_for :materiels do |e| %>
+    <%= render 'evenements/materiel_fields', f: e %>
+  <% end %>
+  <div class="links text-center">
+    <%=  link_to_add_association f,  :materiels, class:"btn-no-border" do %>
+      Ajouter
+    <% end %>
+  </div>
+
+</div>

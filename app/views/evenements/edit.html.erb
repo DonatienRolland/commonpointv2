@@ -1,0 +1,46 @@
+<div id="edit-evenement" style="display: table; width: 100%;">
+  <%= render 'evenements/new', user: @user, evenement: @evenement %>
+
+  <%= simple_form_for (@evenement) do |f| %>
+  <%= render 'evenements/add-participants', user: @user, evenement: @evenement, f: f %>
+    <div id="container-grid">
+      <div id="informations" style="padding: 5px;">
+        <h3 class="title-onglet">Informations</h3>
+        <%= render 'evenements/formulaire', user: @user, f: f %>
+      </div>
+      <div style="padding: 5px;">
+        <h3 class="title-onglet">Besoins</h3>
+        <%= render 'evenements/materiel', user: @user, f: f %>
+      </div>
+      <div id="localisation" style="padding: 5px;">
+        <h3 class="title-onglet">Lieu</h3>
+        <%= render 'evenements/adresse', user: @user, f: f %>
+      </div>
+
+      <div id="participant-grid" style="padding: 5px;">
+        <h3 class="title-onglet">Participants</h3>
+        <%= render 'evenements/participants', user: @user, f: f %>
+      </div>
+      <div class="text-center" id="btn-save">
+        <% if @evenement.point_group.evenements.count > 1 %>
+          <%= link_to 'Mes événement', mes_evenements_evenement_path( @evenement ), class:"btn-no-border" %>
+        <% end %>
+        <%= f.submit 'Enregistrer', class:"btn btn-start-order" %>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
+
+
+<%= content_for(:after_js) do %>
+
+ <%= javascript_pack_tag "map" %>
+<% end %>
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+<div class="avatar_and_name">
+  <div style="margin-right: 10px;">
+    <%= render 'shared/avatar', user: user %>
+  </div>
+  <p style="margin: 0;"><%=h truncate(user.prenom, length: 9) %></p>
+</div>
+

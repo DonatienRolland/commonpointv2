@@ -1,0 +1,11 @@
+<div class='nested-fields' style="display: flex;">
+  <div class="form-group">
+    <%= f.label :title, label:'Materiel', class:"form-label", required: false %>
+    <%= f.input :title, as: :string, label: false, class:"form-control", tabindex:"1", placeholder: "Ajouter un titre"%>
+  </div>
+  <%= link_to_remove_association f, class:"btn-no-border", style:"padding: 0;"  do %>
+    <i class="far fa-trash-alt"></i>
+  <% end %>
+</div>
+
+

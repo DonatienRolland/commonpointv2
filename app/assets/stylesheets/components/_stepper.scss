@@ -1,0 +1,27 @@
+.input-stepper {
+  display: flex;
+  align-items: center;
+}
+
+.input-stepper p[disabled] {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+.input-stepper p i {
+   color: $cp;
+   margin: 0 5px;
+}
+
+.input-stepper input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  width: 36px;
+}
+input[type="radio"], input[type="checkbox"] {
+  margin: 0;
+}

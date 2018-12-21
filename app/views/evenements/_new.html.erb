@@ -1,0 +1,54 @@
+
+<!-- modal -->
+  <div class="modal modal-space-1 row fade" id="newevenementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-content col-lg-4 col-lg-offset-4" style="padding: 10px">
+      <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
+      <h4>C'est parti ...</h4>
+      <% if (@user.user_activities.count > 0) %>
+        <% if evenement.id.nil? %>
+
+          <%= simple_form_for [user, evenement] do |f| %>
+          <div class="row" style="padding: 10px;">
+            <div class="col-xs-12 form-group">
+              <%= f.label :user_activity, label:'Choisissez votre activité:', class:"form-label", required: true %>
+              <%= f.input :user_activity, collection: Activity.where(user_activities: @user.user_activities), label:false, placeholder: "Choisissez votre activité:", class:"form-control", tabindex:"1", input_html: { class:'select2'} %>
+            </div>
+          </div>
+          <div class="row" style="padding: 10px;">
+            <!-- <div class="col-xs-6">
+              <div class="col-xs-12">
+                <p><strong>Privé :</strong> Seules les personnes invitées peuvent voir ce événement. L'organisateur choisit si les invités peuvent inviter du monde</p>
+              </div>
+              <div class="col-xs-12">
+                <p><strong>Public :</strong> Tout le monde peut voir ce événement, le rechercher et y participer</p>
+              </div>
+            </div> -->
+            <div class="col-xs-6 form-group">
+              <%= f.label :type_of_evenement, label:'Quel est le type de evenement?', class:"form-label", required: true %>
+              <%= f.input :type_of_evenement, label: false, placeholder: 'Quel est le type de evenement?', collection: Evenement.type_of_evenements.map { |key, value| [key.humanize, key] } , class:"form-control" %>
+            </div>
+          </div>
+          <div class="text-center">
+            <%= f.button :button, class:"btn btn-start-order" do %>
+              Créer
+            <% end %>
+          </div>
+          <% end %>
+        <% else %>
+          <%= simple_form_for @evenement, url: update_type_of_evenement_evenement_path(@evenement), method: :put, remote: false do |f| %>
+
+            <%= f.input :type_of_evenement, label: "Quel est le type de evenement?", collection: [ "Publique", "Privé"] %>
+            <%= f.button :button, style:"background-color: white;" do %>
+              <i class="fas fa-check"></i>
+              Créer
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <h3>D'abord, il vous faut des activités :)</h3>
+        <%= link_to user_activities_path(@user), class:"btn btn-start-order" do %>
+          <i class="far fa-heart"></i> Mes Activités
+        <% end %>
+      <% end %>
+    </div>
+  </div>

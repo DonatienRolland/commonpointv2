@@ -14,11 +14,15 @@ class UserActivitiesController < ApplicationController
       format.js
     end
   end
+
   def create
     @user = User.find(params[:user_id])
     @user_activity = UserActivity.new(activity_params)
     @user_activity.user = @user
     if @user_activity.save
+      act = @user_activity.activity
+      act.total_user += 1
+      act.save
       act = @user_activity.activity.title
       # points = Point.activity_title(act).where('type_of_point = ? and date <= ?', "Publique", DateTime.now).where(full: false)
       # points.each do |point|

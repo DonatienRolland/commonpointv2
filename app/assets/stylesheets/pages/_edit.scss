@@ -1,14 +1,4 @@
-// .horizontale-scrolling {
-//   display: flex;
-//   flex-wrap: nowrap;
-//   overflow-x: auto;
-
-//   .activity-card {
-//     flex: 60px ;
-//   }
-// }
-
-
+// user
 .horizontale-scrolling {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -19,43 +9,117 @@
     width: 146px;
     margin: 3px;
   }
+  .activity-card:hover {
+    box-shadow: unset;
+    cursor: unset;
+  }
 }
 
-.form-label {
-  font-size: 12px;
-  color: $cp;
-  margin: 0;
-  display: block;
-  opacity: 1;
-  -webkit-transition: .333s ease top, .333s ease opacity;
-  transition: .333s ease top, .333s ease opacity;
+
+#picture-space {
+  border-radius: 50%;
+  background-color: white;
+  height: 130px;
+  width: 130px;
+  padding-top: 17%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  -webkit-box-shadow: 1px 4px 10px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 4px 10px -2px rgba(0,0,0,0.75);
+  box-shadow: 1px 4px 10px -2px rgba(0,0,0,0.75);
+  p {
+    font-size: 10px;
+    margin: 0;
+  }
+  i {
+    margin-top: 10px;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    z-index: -1;
+  }
 }
-.form-control {
-  border-radius: 0;
-  border-color: #ccc;
-  border-width: 0 0 2px 0;
-  border-style: none none solid none;
-  box-shadow: none;
-  background-color: #fff0 !important;
+
+.left-edit {
+  align-items: center;
+    display: flex;
+    padding-left: 10%;
+    background-color: $orange;
+
 }
-.form-control:focus {
-  box-shadow: none;
-  border-color: $cp;
+
+// evenement
+#container-grid {
+  display: grid;
+  grid-template-columns: 50% 1fr 1fr;
+  grid-template-rows: 1fr 1fr 70px;
+  height: calc(100vh - 100px)
 }
-.btn-start-order {
-  background: 0 0 #fff0;
-  border: 1px solid #2f323a;
-  border-radius: 3px;
-  color: #2f323a;
-  font-family: "Raleway", sans-serif;
-  font-size: 16px;
-  line-height: inherit;
-  margin: 30px 0;
-  padding: 10px 50px;
-  text-transform: uppercase;
-  transition: all 0.25s ease 0s;
+#informations {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
 }
-.btn-start-order:hover,.btn-start-order:active, .btn-start-order:focus {
-  border-color: $cp;
-  color: $cp;
+#localisation {
+  grid-column: 2 / span 3;
+  grid-row: 2 / span 1;
+}
+#participant-grid {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+#btn-save {
+  grid-column: 1 / span 3;
+  grid-row: 3 / span 1;
+}
+
+@media(max-width: 720px) {
+  #container-grid  {
+    display: block;
+  }
+}
+// formulaire
+
+#formulaire {
+  height: calc(100% - 28px);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: 90px 1fr;
+}
+#info {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#uprigth-grid {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+#dates {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 2;
+}
+
+.space-arround {
+  display: flex;
+  justify-content: space-around;
+
+}
+.set-materiel {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

@@ -19,6 +19,10 @@ class User < ApplicationRecord
   # accepts_nested_attributes_for :user_activities, allow_destroy: true, reject_if: :all_blank
   # accepts_nested_attributes_for :activities, allow_destroy: true, reject_if: :all_blank
 
+  has_many :evenements, dependent: :destroy
+
+  has_many :participants, dependent: :destroy
+
   belongs_to :company
   accepts_nested_attributes_for :company, :reject_if => :all_blank
 

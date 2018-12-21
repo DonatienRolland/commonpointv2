@@ -1,13 +1,18 @@
 
 <%= simple_form_for (@user) do |f| %>
-  <div class="row">
-    <div class="col-sm-4 col-xs-6">
-      <label for="picture-upload">
-        <img src="<%= @user.avatar? ? @user.avatar_url : "https://via.placeholder.com/150" %>" alt="" id="preview" class="avatar-lg">
+  <div class="row" style="background-color: white; border: solid 2px #f65324;
+    border-radius: 3px;">
+    <div class="col-sm-4 col-xs-6 eql-height left-edit">
+      <label for="picture-upload" id="picture-space">
+        <p>Ajouter une photo</p>
+        <p>pour votre profil</p>
+        <i class="fas fa-camera-retro"></i>
+        <img src="<%= @user.avatar? ? @user.avatar_url : "" %>" alt="" id="preview" class="avatar-lg">
       </label>
       <%= f.file_field :avatar, id:"picture-upload", class:'hidden' %>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-xs-6 eql-height">
+      <div style="padding: 2%;">
       <div class="form-group">
         <%= f.label :prenom, label:'Prénom', class:"form-label", required: false %>
         <%= f.input :prenom, label:false, placeholder: "Prénom", class:"form-control", tabindex:"1" %>
@@ -22,8 +27,11 @@
       </div>
       <div class="text-center">
         <%= f.button :submit, "Modifier", class:"btn btn-start-order" %>
+
+        <%= link_to "Gérer mes notifications", "#", class:"btn btn-start-order" %>
       </div>
-      <label for="">Mes activités favorites</label>
+      </div>
+      <h4>Mes activités favorites</h4>
       <div class="horizontale-scrolling">
         <% @user_activities.each do |user_activity| %>
           <div class="activity-card " style="height: 151.25px;">

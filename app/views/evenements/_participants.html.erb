@@ -1,0 +1,17 @@
+<div class="background-white" style="height: 91%">
+  <div>
+    <% @users.each do |user| %>
+      <div class="userEdit hidden" id="user_edit_<%= user[:user_id] %>">
+        <% set_user = User.find(user[:user_id]) %>
+        <div>
+          <%= render 'shared/avatar', user: set_user  %>
+        </div>
+      </div>
+    <% end %>
+    <!-- </div> -->
+  </div>
+  <p id="totalInvite"></p>
+  <button type="button" class="btn btn-start-order" data-toggle="modal" data-target="#listParticipantModal">
+    Ajouter
+  </button>
+</div>
