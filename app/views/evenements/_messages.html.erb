@@ -1,0 +1,10 @@
+<div class="background-white" style="display: flex; flex-direction: column;">
+  <div id="messages" class="scroll-div">
+
+      <% @messages.each do |message| %>
+        <%= render 'messages/show', message: message %>
+      <% end %>
+
+  </div>
+  <%= render 'messages/form', evenement: @evenement, message: @message %>
+</div>

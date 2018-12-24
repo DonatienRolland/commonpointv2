@@ -4,3 +4,83 @@
 <button type="button" class="btn btn-start-order" data-toggle="modal" data-target="#newevenementModal">
   Créer un match
 </button>
+
+
+
+<!--   <div id="user_activity-search_bar">
+
+    <div style="display: flex; align-items: center;">
+      <h2 style="font-size: 32px; margin-right: 5px;">Filtré par activités  </h2>
+      <div class="row" style="width: 30%">
+        <#%= form_tag @path_select_date, method: :get do %>
+          <div class="col-sm-9 col-xs-12" style="margin-top: 5px;">
+            <#%= select_tag :activity_title, options_for_select(@user_evenement.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous"), params[:activity_title]) %>
+          </div>
+          <div class="col-sm-3 col-xs-12" style="margin-top: 5px;">
+            <#%= button_tag class:"recherche-btn" do %>
+              <i class="fas fa-search"></i>
+            <#% end %>
+          </div>
+        <#% end %>
+      </div>
+      <div class="examples">
+        <div class="example missing-particiapants">
+          <p>Manque de personne</p>
+          <div class="red-color-border example-bloc">
+            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
+              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="example full">
+          <p>Nombre de participants suffisant</p>
+          <div class="green-color-border example-bloc">
+            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
+              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="example waiting-for-answer">
+          <p>En attente de réponse</p>
+          <div class="example-bloc">
+            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
+              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="example accepted">
+          <p>Accepté</p>
+          <div class="green-background  example-bloc">
+            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
+              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<!--
+<h3>Vous avez <strong><#%= pluralize @points.size, "Point" %></strong> correspondant à votre recherche </h3> -->
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="active nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Calendrier</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Flux</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <%= render 'calendrier-evenement', user: @user, evenements: @evenements %>
+  </div>
+
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="overflow-y: scroll; overflow-x: hidden;">
+    <%= render 'evenements/list-evenements', user: @user, evenements: @user_all_evenements %>
+  </div>
+</div>

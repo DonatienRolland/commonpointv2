@@ -1,0 +1,52 @@
+  <div class="row" style="padding: 15px 10px; height: 100%">
+    <div class="activity-width form-flex-column col-lg-2 col-sm-2 display-flex-center" style="">
+      <%= link_to evenement_path(evenement) do %>
+        <%= cl_image_tag evenement.user_activity.activity.icon? ? evenement.user_activity.activity.icon : @no_icon %>
+        <p><%= truncate(evenement.user_activity.activity.title, length: 20, :separator => /\s/ )%></p>
+      <% end %>
+    </div>
+    <div class="col-lg-3 col-sm-3 display-flex-center" style="">
+      <p> Organisé par <%= evenement.user.prenom %></p>
+      <p>Lieu: <%= evenement.adresse.present? ? "#{evenement.adresse}" : "Pas renseigné" %></p>
+      <p> <%= evenement.prix.nil? ? "" : "Prix par personne #{evenement.prix}€" %></p>
+    </div>
+    <div class="col-lg-4 col-sm-4 relative-position" style=" display: flex; flex-direction: column; justify-content: space-around;">
+      <!-- <p><#%= pluralize evenement.participants.where(participe: true).count, "participant" %> participants sur <#%= evenement.nombre_min %> de places dispos</p> -->
+      <div class="flex-evenly hidden-xs">
+        <div class="flex-evenly" style="width: 30%;">
+          <% evenement.participants.first(3).each do |participant| %>
+            <div class="point-calendar">
+              <%= render 'shared/avatar', user: participant.user %>
+            </div>
+          <% end %>
+        </div>
+        <p class="light-p"><%= evenement.participants.first.user.prenom %> et <%= pluralize evenement.participants.where(participe: true).count - 1, "ami" %>  participent</p>
+      </div>
+      <div class="">
+        <% if evenement.full %>
+          <p class="red-background " style="text-align: center;">Complet</p>
+        <% elsif evenement.nombre_min < evenement.participants.where(participe: true).count && evenement.nombre_max.nil? %>
+          <p class="blue-background " style="text-align: center;">Le nombre minimum est atteint </p>
+        <% elsif evenement.nombre_min < evenement.participants.where(participe: true).count && !evenement.nombre_max.nil? %>
+          <p class="blue-background " style="text-align: center;">Plus que <%= pluralize evenement.nombre_max - evenement.participants.where(participe: true).count, "place"  %></p>
+        <% else %>
+          <p class="red-background" style="text-align: center;"><%= pluralize evenement.nombre_min - evenement.participants.where(participe: true).count, "joueur manquant", "joueurs manquants" %> </p>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path(evenement) %>" data-participant="<%= @user.is_participant?(evenement).id %> " style=" display: flex; align-items: center; justify-content: center;">
+      <% if evenement.full && !@user.is_participant?(evenement).participe %>
+        <p class="red-background " style="font-size: 25px">Complet</p>
+      <% elsif @user.is_participant?(evenement).participe ||  !evenement.full %>
+
+        <% if @user.is_participant?(evenement).participe %>
+          <%= link_to "Quitter", "#",class:"changingStatus btn-start-order", data:{ status:false}, remote: true, authenticity_token: true %>
+        <% else %>
+          <%= link_to "S'inscrire", "#",class:"changingStatus btn-start-order", data:{ status:true}, remote: true, authenticity_token: true %>
+          <% if @user.is_participant?(evenement).participe.nil? %>
+            <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>

@@ -1,8 +1,13 @@
  <div class="background-white">
-   <div class="form-group">
-    <%= f.label :adresse, label:'Adresse', class:"form-label", required: false %>
-    <%= f.input :adresse, class:"form-control", input_html: { id: "evenement_address" }, label: false %>
-  </div>
-  <div id="map" style="width: 100%; height: 240px;" data-markers="<%= @markers.to_json %>" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  <% if params[:action] == "edit" %>
+    <div class="form-group hidden">
+      <%= f.label :adresse, label:'Adresse', class:"form-label", required: false %>
+      <%= f.input :adresse, class:"form-control", input_html: { id: "evenement_address" }, label: false %>
+    </div>
+    <div id="map" style=" width: 100%; height: calc(100% - 20px)" data-markers="<%= @markers.to_json %>" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  <% else %>
+    <p><%= @evenement.adresse %></p>
+    <div id="map" style=" width: 100%; height: 240px" data-markers="<%= @markers.to_json %>" data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+  <% end %>
   </div>
 </div>

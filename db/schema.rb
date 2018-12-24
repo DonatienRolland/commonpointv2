@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_20_085302) do
+ActiveRecord::Schema.define(version: 2018_12_22_023216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2018_12_20_085302) do
     t.index ["participant_id"], name: "index_materiels_on_participant_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.bigint "evenement_id"
+    t.bigint "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["evenement_id"], name: "index_messages_on_evenement_id"
+    t.index ["participant_id"], name: "index_messages_on_participant_id"
+  end
+
   create_table "participants", force: :cascade do |t|
     t.boolean "participe"
     t.bigint "user_id"
@@ -127,6 +137,8 @@ ActiveRecord::Schema.define(version: 2018_12_20_085302) do
   add_foreign_key "evenements", "users"
   add_foreign_key "materiels", "evenements"
   add_foreign_key "materiels", "participants"
+  add_foreign_key "messages", "evenements"
+  add_foreign_key "messages", "participants"
   add_foreign_key "participants", "evenements"
   add_foreign_key "participants", "users"
   add_foreign_key "user_activities", "activities"

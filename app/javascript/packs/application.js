@@ -13,11 +13,18 @@ revealModal();
 import { toggleClass } from "../components/addClass";
 toggleClass();
 
-import { createListParticipant } from "../components/participations";
-createListParticipant();
+// import { createListParticipant, switchPublicPrive } from "../components/participations";
+// createListParticipant();
+// switchPublicPrive();
 
 import { addNumber } from "../components/addNumber";
 addNumber();
 
-import { tabWithOutNewData } from "../components/tabWithOutNewData";
+import { tabWithOutNewData } from "../components/editEvenementJs";
 tabWithOutNewData();
+
+import { participationsAjaxShow } from '../components/participationsAjaxShow';
+participationsAjaxShow();
+
+import { materielAjax } from '../components/materielAjax';
+materielAjax();

@@ -1,9 +1,15 @@
 class EvenementsController < ApplicationController
-
+  skip_before_action :verify_authenticity_token, only: [:update_status_participant, :update_materiel]
 
   def index
     @user = User.find(params[:user_id])
+    @user_all_evenements = policy_scope(Evenement)
     @evenement = Evenement.new
+    @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
+
+    @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    @now = Time.zone.now.beginning_of_month
+    @today = Date.today
   end
 
   def create
@@ -19,12 +25,34 @@ class EvenementsController < ApplicationController
     else
       render new
     end
+    authorize @user
   end
 
   def show
     @evenement = Evenement.find(params[:id])
     @user = @evenement.user
+    @message = Message.new
+    @messages = Message.where(evenement: @evenement).order('created_at ASC')
+    @participant = Participant.where(user: @user, evenement: @evenement).first
+    @level = UserActivity.where(user: @user, activity: @evenement.activity).first.level
+    # A changer
+    @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
+    @markers = [{
+      lng: @evenement.adresse.nil? ? 2.333333 : @evenement.longitude,
+      lat: @evenement.adresse.nil? ? 48.866667 : @evenement.latitude,
+    }]
+    @participants_are_coming = []
+    @evenement.participants.where(participe: true).order_by_user_name.each do |participant|
+      parti = {
+        participant_id: participant.id,
+        user_id: participant.user_id,
+        level: UserActivity.where(user: participant.user, activity: @evenement.activity).first.level
+      }
+      @participants_are_coming << parti
+    end
+    authorize @evenement
   end
+  # TODO before_destroy de participant a refaire
 
   def edit
     @evenement = Evenement.find(params[:id])
@@ -50,10 +78,12 @@ class EvenementsController < ApplicationController
     Participant.where(evenement: @evenement).each do |participant|
       @participants << participant.user_id
     end
+    authorize @user
   end
 
   def update
     @evenement = Evenement.find(params[:id])
+    @user = @evenement.user
     if @evenement.update(evenement_params)
       update_participants(@evenement, current_user)
       if params[:second_date].present? && params[:second_date] != ""
@@ -65,10 +95,42 @@ class EvenementsController < ApplicationController
     else
       redirect_to edit_evenement_path(@evenement), flash: {alert: "Assurez-vous d'avoir bien remplis tous les champs" }
     end
-    # authorize @user
+    authorize @user
   end
 
-  # TODO before_destroy de participant a refaire
+  def update_status_participant
+    @evenement = Evenement.find(params[:id])
+    @user = @evenement.user
+    p "Your are in participant update"
+    Participant.where(id: params[:participant_id]).update_all(participe: params[:status] )
+    # p "participant is #{participant}"
+    p "Participant save!"
+    head :ok
+    authorize @user
+  end
+
+  def update_materiel
+    @evenement = Evenement.find(params[:id])
+    params_value = params[:params_value]
+    materiel = Materiel.find(params_value[:materiel])
+    @user = User.find(params_value[:user])
+    p "Is it checked? #{params_value[:checked]}"
+    if params_value[:checked] == "true"
+      p "ok you are checked"
+      participant = Participant.where(user: @user, evenement: @evenement).first
+    else
+      p "ok unchecked"
+      participant == nil
+    end
+      p "#{participant}"
+    if materiel.update(participant: participant)
+      p "All good dude"
+    else
+      p "error"
+    end
+    head :ok
+    authorize @evenement
+  end
 
 
   def destroy
@@ -79,6 +141,7 @@ class EvenementsController < ApplicationController
     @evenement = Evenement.find(params[:id])
     @user = @evenement.user
     @evenements = @evenement.point_group.evenements
+    authorize @user
   end
 
 private
@@ -126,8 +189,7 @@ private
     params.require(:evenement).permit(:user_activity_id, :type_of_evenement,
       :nombre_min, :nombre_max, :prix, :adresse,
       :user, :jour, :heur,
-      # materiels_attributes: Materiel.attribute_names.map(&:to_sym).push(:_destroy)
-      materiels_attributes: [ :id, :title]
+      materiels_attributes: Materiel.attribute_names.map(&:to_sym).push(:_destroy)
     )
   end
 

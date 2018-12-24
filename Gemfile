@@ -36,3 +36,7 @@ gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 
 gem "cocoon"
+gem "pundit"
+
+
+gem "simple_calendar", "~> 2.0"

@@ -12,12 +12,17 @@ class Evenement < ApplicationRecord
   accepts_nested_attributes_for :materiels, reject_if: :all_blank, allow_destroy: true
 
   has_many :participants, dependent: :destroy
+  has_many :users, through: :participant
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
   enum type_of_evenement: {
     "Privé" => 0,
     Publique: 1
   }
+
+  # scope :invited, -> (user) { joins(:participant).merge(Participant.where(user: user)) }
+
+  has_many :messages, dependent: :destroy
 
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
@@ -32,6 +37,16 @@ class Evenement < ApplicationRecord
 
   def second_step
     self.id.nil? ? false : true
+  end
+
+  def start_time
+    self.jour ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
+  def is_new?
+    if self.created_at > Date.today - 1.hours
+      true
+    end
   end
 
   def set_group_of_point

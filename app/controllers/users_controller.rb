@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       }
       @user_activities << activity
     end
+    authorize @user
   end
 
   def update
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
     else
       raise
     end
-    # authorize @user
+    authorize @user
   end
 
   private

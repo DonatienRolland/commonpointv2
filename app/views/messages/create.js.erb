@@ -1,0 +1,26 @@
+function refreshForm(innerHTML) {
+  const newMessageForm = document.getElementById('new_message');
+  newMessageForm.innerHTML = innerHTML;
+}
+
+function addMessage(messageHTML) {
+  const messages = document.getElementById('messages');
+  messages.insertAdjacentHTML('beforeend', messageHTML);
+}
+function scrollMessagesIntoView(){
+  let messages = document.querySelectorAll('.message');
+  let lastMessage = messages[messages.length - 1];
+  if (lastMessage !== undefined) {
+    lastMessage.scrollIntoView();
+  }
+}
+
+
+<% if @message.errors.any? %>
+  refreshForm('<%= j render "messages/form", evenement: @evenement, message: @message %>');
+<% else %>
+  addMessage('<%= j render "messages/show", message: @message %>');
+  refreshForm('<%= j render "messages/form", evenement: @evenement, message: Message.new %>');
+  scrollMessagesIntoView();
+
+<% end %>

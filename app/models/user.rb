@@ -39,6 +39,36 @@ class User < ApplicationRecord
     self.nom.capitalize!
   end
 
+  def full_name
+     return "#{self.prenom} #{self.nom}"
+  end
+
+  def is_participant?(current_evenement)
+    participant = Participant.where(user: self, evenement: current_evenement).first
+  end
+
+   def participated?(current_evenement)
+    participant = self.is_participant?(current_evenement)
+    if participant.participe
+      true
+    else
+      false
+    end
+  end
+
+  def invited?(current_evenement)
+    participant = self.is_participant?(current_evenement)
+    if participant
+      return true
+    else
+      return false
+    end
+  end
+
+  def is_owner?(current_evenement)
+    current_evenement.user == self
+  end
+
   def match_with_a_company?
     user_domain = self.email.split("@").second
     if Company.where(email_domain: user_domain ).count > 0

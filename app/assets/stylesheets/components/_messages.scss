@@ -1,0 +1,38 @@
+.left-localisation {
+  float: left;
+  .format-message {
+    background-color: $cp;
+    color: white;
+  }
+}
+
+.right-localisation {
+  float: right;
+  text-align: right;
+}
+
+.format-message {
+  border: 1px solid $cp;
+  border-radius: 20px;
+  padding: 5px;
+  margin-top: 3px;
+}
+
+.message {
+  max-width: 100%;
+  word-wrap: break-word;
+  p {
+    margin: 0;
+  }
+}
+
+
+#messages {
+  height: calc(100% - 82px);
+  width: calc(200px - 30px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+    .row {
+    margin: 0;
+  }
+}

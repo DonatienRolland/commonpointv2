@@ -1,11 +1,33 @@
 <div id="materiels" class="background-white set-materiel">
-  <%= f.simple_fields_for :materiels do |e| %>
-    <%= render 'evenements/materiel_fields', f: e %>
-  <% end %>
-  <div class="links text-center">
-    <%=  link_to_add_association f,  :materiels, class:"btn-no-border" do %>
-      Ajouter
+  <% if params[:action] === "edit" %>
+    <%= f.simple_fields_for :materiels do |e| %>
+      <%= render 'evenements/materiel_fields', f: e %>
     <% end %>
-  </div>
+    <div class="links text-center">
+      <%=  link_to_add_association f,  :materiels, class:"btn-no-border" do %>
+        Ajouter
+      <% end %>
+    </div>
+  <% else %>
 
+
+    <div id="form-materiel" data-url="<%= update_materiel_evenement_path(evenement) %>">
+      <div class="row"  style="max-height: 240px">
+        <% evenement.materiels.each do |e| %>
+          <div class="col-xs-6">
+            <p><%= e.title %></p>
+          </div>
+          <div class="col-xs-6">
+            <% if e.participant.nil? || e.participant.user == current_user %>
+              <input type="checkbox" class="participant-form-show" data-materiel="<%= e.id %>" value="<%= current_user.id %>" <%= e.participant.nil? ? "" : "checked" %>>
+            <% else %>
+              <p><%= e.participant.user.prenom %> s'en occupe</p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
+
+

@@ -16,7 +16,7 @@
       </div>
       <div class="<%= @activity.user_activities.size > 0 ? "col-lg-5 col-sm-5" : "col-lg-offset-2 col-lg-8 col-sm-12" %>">
         <div class="circle-btn">
-          <div class="icon_cercle background-icon" style="background-image: url('<%= image_path @activity.icon? ? @activity.icon? : @no_icon %>')">
+          <div class="icon_cercle background-icon" style="background-image: url('<%= image_path @activity.icon? ? @activity.icon : @no_icon %>')">
           </div>
           <h3><%= @activity.title %></h3>
         </div>

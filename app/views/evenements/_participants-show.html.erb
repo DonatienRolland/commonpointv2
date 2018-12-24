@@ -1,0 +1,50 @@
+
+<div class="background-white">
+
+  <div class="row" style="display: flex; align-items: center;">
+    <div class="col-xs-6">
+      <div class="content-participant row" style="margin: 5px;">
+        <div class="col-xs-12">
+          <%= render 'shared/avatar_name_stars', user: @participant.user, level: @level  %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-3" id='statusParticipant'>
+      <% if @participant.participe %>
+        <p>je participe</p>
+      <% elsif @participant.participe.nil? %>
+        <p>en attente</p>
+      <% else %>
+        <p>je ne participe pas</p>
+      <% end %>
+    </div>
+    <div class="col-xs-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path %>" data-participant="<%= @participant.id %> ">
+      <% if @participant.participe %>
+        <%= link_to "Quitter", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+      <% else %>
+        <%= link_to "S'inscrire", "#",class:"changingStatus btn-no-border", data:{ status:true}, remote: true, authenticity_token: true %>
+        <% if @participant.participe.nil? %>
+          <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <% @participants_are_coming.each do |participant| %>
+    <% if participant[:user_id] != @participant.user.id %>
+      <div class="row" style="display: flex; align-items: center;">
+        <div class="col-xs-6">
+          <div class="content-participant row" style="margin: 5px;">
+            <div class="col-xs-12">
+              <%= render 'shared/avatar_name_stars', user: User.find(participant[:user_id]), level: participant[:level]  %>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <p>participe</p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

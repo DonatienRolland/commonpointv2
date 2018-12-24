@@ -1,0 +1,10 @@
+
+<!-- if it's user message -->
+<div class="row">
+  <div class="message <%= message.participant.user == current_user ? "right-localisation" : "left-localisation" %> ">
+      <p><strong><%= message.participant.user.prenom %>:</strong></p>
+    <div class="format-message">
+      <p><%= message.content %></p>
+    </div>
+  </div>
+</div>

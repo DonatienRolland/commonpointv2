@@ -22,17 +22,20 @@
 
 .background-white {
   background-color: $white;
-  border-bottom-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  padding: 20px;
+  // border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+    height: 100%;
+  width: 100%;
 }
 
 .title-onglet {
   background-color: $cp;
   color: $white;
   display: inline;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   padding: 3px 8px 2px 8px;
 }

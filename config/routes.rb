@@ -15,10 +15,11 @@ Rails.application.routes.draw do
 
   resources :evenements, only: [ :show, :edit, :destroy, :update ] do
     put 'search_map', on: :member #with id
-    put 'update_type_of_evenement', on: :member #with id
+    put 'update_status_participant', on: :member #with id
     put 'update_materiel', on: :member
     get 'mes_evenements', on: :member
-    # resources :messages, only: [ :create ]
+    resources :messages, only: [ :create ]
+     resources :participants, only: :create
     # resources :participants, only: :create
   end
 

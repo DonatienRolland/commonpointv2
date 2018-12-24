@@ -1,4 +1,71 @@
+ <%= csrf_meta_tags %>
+<div id="edit-evenement" style="display: table; width: 100%;">
+
+    <div id="container-grid-show">
+      <div class="informations">
+        <div class="title">
+          <h3 class="title-onglet">Informations</h3>
+        </div>
+        <%= render 'evenements/informations', evenement: @evenement %>
+      </div>
+      <div class="localisation">
+        <div class="title">
+          <h3 class="title-onglet">Lieu</h3>
+        </div>
+        <%= render 'evenements/adresse' %>
+      </div>
+
+      <div class="participant-grid">
+        <div class="title">
+          <h3 class="title-onglet">Participants</h3>
+        </div>
+        <%= render 'evenements/participants-show', user: @user, evenement: @evenement %>
+      </div>
+      <div class="besoins">
+        <div class="title">
+          <h3 class="title-onglet">Besoins</h3>
+        </div>
+        <%= render 'evenements/materiel', user: @user, evenement: @evenement %>
+      </div>
+      <div class="messages">
+        <div class="title">
+          <h3 class="title-onglet">Messages</h3>
+        </div>
+        <%= render 'evenements/messages', user: @user, evenement: @evenement %>
+      </div>
+      <div class="text-center btn-save">
+        <% if @evenement.point_group.evenements.count > 1 %>
+          <%= link_to 'Mes événement', mes_evenements_evenement_path( @evenement ), class:"btn-no-border" %>
+        <% end %>
+        <%= link_to 'modifier', edit_evenement_path(@evenement), class:"btn btn-start-order"%>
+      </div>
+    </div>
+
+
+</div>
+
+
+<%= content_for(:after_js) do %>
+  <script>
+    window.addEventListener('load', function(){
+      let messages = document.querySelectorAll('.message');
+      let lastMessage = messages[messages.length - 1];
+      if (lastMessage !== undefined) {
+        lastMessage.scrollIntoView();
+      }
+    })
+  </script>
 
 
 
-<%= link_to 'modifier', edit_evenement_path(@evenement), class:"btn btn-start-order"%>
+ <%= javascript_pack_tag "map" %>
+<% end %>
+
+
+
+
+
+
+
+
+
