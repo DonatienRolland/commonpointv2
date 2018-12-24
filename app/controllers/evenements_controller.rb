@@ -4,6 +4,7 @@ class EvenementsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @user_all_evenements = policy_scope(Evenement)
+    filtering(@user_all_evenements)
     @evenement = Evenement.new
     @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
 
@@ -23,7 +24,7 @@ class EvenementsController < ApplicationController
       @evenement.generate_participant(@user, true)
       redirect_to edit_evenement_path(@evenement), flash: {notice: "Votre evenement a été créé. Veuilliez compléter les infos manquantes"}
     else
-      render new
+      redirect_to user_evenements_path(@user), flash: {alert: "Renseignez une activité et le type d'événement"}
     end
     authorize @user
   end
@@ -204,4 +205,16 @@ private
   def activity_params
     params[:evenement][:user_activity].to_i
   end
+
+  def filtering(evenements)
+    filtering_params(params).each do |key, value|
+      @user_all_evenements = evenements.public_send(key, value) if value.present? && value != "Tous"
+    end
+  end
+
+  def filtering_params(params)
+    params.slice(:activity_title)
+  end
+
+
 end

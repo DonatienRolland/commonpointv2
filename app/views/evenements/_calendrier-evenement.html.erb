@@ -1,10 +1,14 @@
 <%= month_calendar events: @user_all_evenements do |date, evenements| %>
   <%= date.day %>
+  <% if evenements.count < 1 && date >= @today %>
+    <a type="button" class="full-screen" data-toggle="modal" data-target="#newevenementModal">
+    </a>
+  <% end %>
   <div class="row">
     <% evenements.each do |evenement| %>
-      <div class="dropup <%= evenements.count >= 3 ? 'col-lg-4' : '' %> <%= evenements.count == 2 ? 'col-lg-6' : '' %> <%= evenements.count == 1 ? 'col-lg-12' : '' %> <%= evenement.full ? 'green-color-border' : 'red-color-border' %> <%= @user.invited?(evenement) && !@user.is_owner?(evenement) && !@user.participated?(evenement) ? 'orange-background' : '' %> <%= @user.participated?(evenement) && !@user.is_owner?(evenement) ? 'blue-background' : '' %> <%= @user.is_owner?(evenement) ? 'red-background' : '' %>">
+      <div class="dropup <%= evenements.count >= 3 ? 'col-lg-4' : '' %> <%= evenements.count == 2 ? 'col-lg-6' : '' %> <%= evenements.count == 1 ? 'col-lg-12' : '' %> <%= evenement.full ? 'green-color-border' : 'red-color-border' %> <%= @user.invited?(evenement) && !@user.is_owner?(evenement) && !@user.participated?(evenement) ? 'invited-bloc' : '' %> <%= @user.participated?(evenement) || @user.is_owner?(evenement) ? 'green-background' : '' %>">
           <% if evenement.is_new?%>
-            <div class="new-evenement hidden-xs">
+            <div class="new-point hidden-xs">
               <p>new</p>
             </div>
           <% end %>
@@ -14,9 +18,10 @@
               </div>
           <% end %>
 
-          <!-- <#%= render 'modal-info-evenement', evenement: evenement %> -->
+          <%= render 'modal-info-evenement', evenement: evenement %>
 
       </div>
     <% end %>
   </div>
 <% end %>
+

@@ -40,3 +40,6 @@ gem "pundit"
 
 
 gem "simple_calendar", "~> 2.0"
+
+# search_bar for activities
+gem 'pg_search'

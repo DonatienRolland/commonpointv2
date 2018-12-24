@@ -1,9 +1,9 @@
 function participationsAjaxShow(){
   const changingBlock = document.getElementById('changingStatus')
   const actualStatu = document.getElementById('statusParticipant')
-  const divStatus = changingBlock.querySelectorAll('.changingStatus')
 
   if (changingBlock) {
+    const divStatus = changingBlock.querySelectorAll('.changingStatus')
     divStatus.forEach((divStatu) => {
       divStatu.addEventListener('click', function() {
         var sendValue = {

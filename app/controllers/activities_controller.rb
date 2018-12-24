@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
     @categories = Category.all
 
 
-    Activity.all.order('title ASC').each do |activity|
+    policy_scope(Activity).each do |activity|
       activity = {
         id: activity.id,
         title: activity.title,
@@ -15,9 +15,6 @@ class ActivitiesController < ApplicationController
       }
       @activities << activity
     end
-
-  end
-  def show
 
   end
 end

@@ -1,6 +1,6 @@
 class UserActivitiesController < ApplicationController
   def new
-    # @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     @user = current_user
     @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
     if params[:act]
@@ -13,6 +13,7 @@ class UserActivitiesController < ApplicationController
       format.html
       format.js
     end
+    authorize @user
   end
 
   def create
@@ -24,6 +25,8 @@ class UserActivitiesController < ApplicationController
       act.total_user += 1
       act.save
       act = @user_activity.activity.title
+
+      # TODO
       # points = Point.activity_title(act).where('type_of_point = ? and date <= ?', "Publique", DateTime.now).where(full: false)
       # points.each do |point|
       #   Participant.create(point: point, user: @user, invited: true)
@@ -33,7 +36,7 @@ class UserActivitiesController < ApplicationController
       render :index
     end
 
-    # authorize @user
+    authorize @user
 
   end
   def update
@@ -44,7 +47,7 @@ class UserActivitiesController < ApplicationController
     else
       render new
     end
-    # authorize @user_activity
+    authorize @user
   end
   private
 

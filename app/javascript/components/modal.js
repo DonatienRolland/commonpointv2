@@ -5,7 +5,7 @@ function revealModal() {
     console.log(targetdate)
     let targetModal = document.getElementById(targetModalID)
 
-    targetModal.style.display = "block";
+    targetModal.style.display = "flex";
 
     let close = "close_" + targetModalID
     let span = document.getElementById(close);

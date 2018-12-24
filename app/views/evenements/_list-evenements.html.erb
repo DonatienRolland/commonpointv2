@@ -22,10 +22,8 @@
       <h3><%= month_now.strftime("%B").upcase %></h3>
     </div>
     <% evenements.each do |evenement| %>
-      <div class="point-list">
-        <h3 class="color-background-date"><%= evenement.day_month_hour %> / <i class="fas fa-search"></i> <%= link_to 'Voir le evenement', evenement_path(evenement) %> </h3>
+
         <%= render 'evenements/info-evenement', evenement: evenement %>
-      </div>
     <% end %>
   <% end %>
 <% end %>

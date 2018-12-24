@@ -1,9 +1,15 @@
+#pills-home {
+  .row {
+    margin: 0;
+  }
+}
+
 .point-calendar {
   img {
     height: 20px;
   }
 }
-.example-bloc {
+.invited-bloc {
   // height: 20px;
   width: 120px;
 }
@@ -74,6 +80,40 @@
   }
 }
 
+.examples {
+  display: grid;
+  margin-left: 10px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  p {
+    margin: 0;
+  }
+  .example{
+    justify-self: center;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .invited-bloc {
+    box-shadow: 1px 1px 3px #E7E5E5;
+  }
+}
+
+.new-point {
+  position: absolute;
+  top: -17px;
+  left: 10%;
+  padding-left: 10px;
+  height: 25px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: #193039ba;
+  color: $white;
+  border: 2px solid $white;
+}
+
 
 #grid-info {
   display: grid;
@@ -105,5 +145,37 @@
 #participations {
   p {
     margin: 0;
+  }
+}
+.simple-calendar {
+.calendar-heading {
+  text-align: center;
+  span {
+    font-weight: 600;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  a {
+    color: $cp;
+    text-decoration: none;
+  }
+}
+  // .past {
+  //   .relative-position {
+  //     background-color: #19303987;
+  //   }
+  // }
+  .full-screen {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
+  }
+  .relative-position {
+    position: relative;
+    height: 100%;
   }
 }

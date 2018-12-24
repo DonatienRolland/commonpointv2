@@ -1,3 +1,5 @@
+<div class="point-list">
+  <h3 class="color-background-date"><%= evenement.day_month_hour %> / <i class="fas fa-search"></i> <%= link_to 'Voir le evenement', evenement_path(evenement) %> </h3>
   <div class="row" style="padding: 15px 10px; height: 100%">
     <div class="activity-width form-flex-column col-lg-2 col-sm-2 display-flex-center" style="">
       <%= link_to evenement_path(evenement) do %>
@@ -50,3 +52,4 @@
       <% end %>
     </div>
   </div>
+</div>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     put 'update_materiel', on: :member
     get 'mes_evenements', on: :member
     resources :messages, only: [ :create ]
-     resources :participants, only: :create
+    resources :participants, only: :create
     # resources :participants, only: :create
   end
 
