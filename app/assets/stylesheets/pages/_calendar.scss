@@ -179,3 +179,25 @@
     height: 100%;
   }
 }
+
+#user_activity-search_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  form {
+    display: flex;
+    align-items: center;
+  }
+  .form-space {
+    width: 40%
+  }
+  select {
+  margin-right: 17px;
+  }
+}
+
+@media(max-width: 720px) {
+  #user_activity-search_bar .form-space {
+    width: 100%
+  }
+}

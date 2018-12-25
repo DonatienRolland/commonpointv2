@@ -9,7 +9,7 @@
         <div class="scroll-div" style="max-height: 350px">
           <% @activity.user_activities.each do |user_activity| %>
             <div style="padding: 3px;">
-              <!-- <#%= render 'shared/avatar_name_stars', user: user_activity.user, activity: @activity %> -->
+              <%= render 'shared/avatar_name_stars', user: user_activity.user, level: user_activity.level  %>
             </div>
           <% end %>
         </div>
@@ -24,36 +24,40 @@
       <% if @user_activity != nil && @user_activity.id %>
         <%= simple_form_for(@user_activity, remote: false, authenticity_token: true) do |f| %>
           <%= f.input :activity_id, input_html: { value: @act_id }, as: :hidden  %>
-          <div style="padding: 15px;">
-            <p>Ton niveau:</p>
+          <div class="form-group">
+            <%= f.label :level, label:'Ton niveau', class:"form-label", required: false %>
             <p id="levelActivity"></p>
-            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
+            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false, class:"form-control" %>
           </div>
-          <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..."  %>
-          <div class="form-action">
-            <%= button_tag(type: "submit", class: "form-button circle-btn green-color form-button-lg", style:"background-color: white;") do %>
-              <i class="fas fa-plus"></i> Modifier
+          <div class="form-group">
+            <%= f.label :information, label:'Information', class:"form-label", required: false %>
+            <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ...", label: false, class:"form-control"  %>
+          </div>
+          <div class="text-center">
+            <%= link_to user_activity_path( @user_activity), method: :delete, remote: false, class:"btn btn-no-border" do %>
+              Retirer
             <% end %>
-            <div class="form-button circle-btn red-color form-button-lg">
-              <%= link_to user_activity_path( @user_activity), method: :delete, remote: false do %>
-                <i class="fas fa-minus"></i> Retirer
-              <% end %>
-            </div>
+            <%= button_tag(type: "submit", class: "btn btn-start-order") do %>
+              Modifier
+            <% end %>
           </div>
         <% end %>
       <% else %>
 
         <%= simple_form_for([ @user, UserActivity.new ], remote: false, authenticity_token: true) do |f| %>
           <%= f.input :activity_id, input_html: { value: @act_id }, as: :hidden  %>
-          <div style="padding: 15px;">
-            <p>Ton niveau:</p>
+          <div class="form-group">
+            <%= f.label :level, label:'Ton niveau', class:"form-label", required: false %>
             <p id="levelActivity"></p>
-            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false %>
+            <%= f.input :level, as: :range, input_html: { min: 1, max: 5, class:"slider", style:"width:100%;", id:"level_value_activity" }, label: false, class:"form-control" %>
           </div>
-          <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ..." %>
-          <div class="form-action">
-            <%= button_tag(type: "submit", class: "form-button circle-btn green-color form-button-lg", style:"background-color: white;") do %>
-              <i class="fas fa-plus"></i> Ajouter
+          <div class="form-group">
+            <%= f.label :information, label:'Information', class:"form-label", required: false %>
+            <%= f.input :information, as: :text, input_html: { :rows => 4 }, placeholder: "Dites nous en un peu plus ...", label: false, class:"form-control"  %>
+          </div>
+          <div class="text-center">
+            <%= button_tag(type: "submit", class: "btn btn-start-order") do %>
+              Ajouter
             <% end %>
           </div>
         <% end %>

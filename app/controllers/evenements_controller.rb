@@ -4,6 +4,9 @@ class EvenementsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @user_all_evenements = policy_scope(Evenement)
+
+    @activities = policy_scope(Evenement).collect{ |u| u.user_activity.activity.title}.insert(0, "Tous").uniq
+
     filtering(@user_all_evenements)
     @evenement = Evenement.new
     @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
@@ -87,8 +90,10 @@ class EvenementsController < ApplicationController
     @user = @evenement.user
     if @evenement.update(evenement_params)
       update_participants(@evenement, current_user)
+      # TODO verifier si la seconde date s'energriser
+
       if params[:second_date].present? && params[:second_date] != ""
-        create_a_second_point_with(params[:second_date],params[:second_heur] , @evenement, current_user)
+        create_a_second_evenement_with(params[:second_date],params[:second_heur] , @evenement, current_user)
         redirect_to mes_evenements_evenement_path( @evenement ), flash: {notice: "Tout est en ordre"}
       else
         redirect_to evenement_path( @evenement ), flash: {notice: "Tout est en ordre"}
@@ -102,10 +107,9 @@ class EvenementsController < ApplicationController
   def update_status_participant
     @evenement = Evenement.find(params[:id])
     @user = @evenement.user
-    p "Your are in participant update"
+
     Participant.where(id: params[:participant_id]).update_all(participe: params[:status] )
-    # p "participant is #{participant}"
-    p "Participant save!"
+    @evenement.check_if_full
     head :ok
     authorize @user
   end
@@ -169,17 +173,21 @@ private
         else
           evenement.delete_participant(user)
         end
+        evenement.check_if_full
       end
 
     end
   end
 
-  def create_a_second_point_with(date, heure, evenement, user)
+  def create_a_second_evenement_with(params_date, params_heure, evenement, user)
+     date = Date.parse params_date
+     heure = Time.parse params_heure
+     heure = heure.strftime("%H:%M")
     if Evenement.where(jour: date, heur: heure, user: user, user_activity: evenement.user_activity ).count < 1
       new_evenement = Evenement.new(evenement.attributes.merge(jour: date, heur: heure ))
       new_evenement.id = nil
-      # new_evenement.point_group_id = evenement.point_group_id
       new_evenement.save
+      new_evenement.generate_participant(user, user === current_user ? true : nil)
       evenement.materiels.each do |materiel|
         equi = Materiel.create!(materiel.attributes.merge(id: nil, evenement: new_evenement))
       end

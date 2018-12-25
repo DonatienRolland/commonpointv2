@@ -24,13 +24,11 @@ class UserActivitiesController < ApplicationController
       act = @user_activity.activity
       act.total_user += 1
       act.save
-      act = @user_activity.activity.title
-
-      # TODO
-      # points = Point.activity_title(act).where('type_of_point = ? and date <= ?', "Publique", DateTime.now).where(full: false)
-      # points.each do |point|
-      #   Participant.create(point: point, user: @user, invited: true)
-      # end
+      act_title = @user_activity.activity.title
+      evenements = Evenement.activity_title(act_title).where(full: false, type_of_evenement:"Publique").where('jour <= ?', DateTime.now)
+      evenements.each do |evenement|
+        evenement.generate_participant(@user, @user === current_user ? true : nil)
+      end
       redirect_to user_activities_path(@user)
     else
       render :index
@@ -39,6 +37,7 @@ class UserActivitiesController < ApplicationController
     authorize @user
 
   end
+
   def update
     @user_activity = UserActivity.find(params[:id])
     @user = @user_activity.user
@@ -49,6 +48,18 @@ class UserActivitiesController < ApplicationController
     end
     authorize @user
   end
+
+  def destroy
+    @user_activity = UserActivity.find(params[:id])
+    @user = @user_activity.user
+    @user_activity.destroy
+    respond_to do |format|
+      format.html { redirect_to user_activities_path(@user) }
+      format.js
+    end
+    authorize @user
+  end
+
   private
 
   def activity_params

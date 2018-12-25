@@ -21,6 +21,10 @@ class UserPolicy < ApplicationPolicy
     user == record || user.admin?
   end
 
+  def destroy?
+    user == record || user.admin?
+  end
+
   private
 
   def is_user_the_owner_or_admin?

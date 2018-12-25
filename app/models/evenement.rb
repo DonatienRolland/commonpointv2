@@ -64,6 +64,15 @@ class Evenement < ApplicationRecord
     end
   end
 
+  def check_if_full
+    if self.nombre_max <= self.participants.where(participe: true).count
+      self.full = true
+    else
+      self.full = false
+    end
+    self.save
+  end
+
   def delete_participant(user)
     participant = Participant.where(user: user, evenement: self).first
     orga = self.user

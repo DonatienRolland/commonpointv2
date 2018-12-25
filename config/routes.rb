@@ -23,4 +23,5 @@ Rails.application.routes.draw do
     # resources :participants, only: :create
   end
 
+
 end
