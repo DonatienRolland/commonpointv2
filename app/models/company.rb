@@ -5,6 +5,8 @@ class Company < ApplicationRecord
 
   has_many :users, dependent: :destroy
 
+
+
   mount_uploader :icon, PhotoUploader
 
 end

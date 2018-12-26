@@ -19,9 +19,16 @@
         #{ 'navbar-active' if params[:action] == "index" } " do%>
       <i class="far fa-calendar-alt"></i>Mes événements
       <% end %>
+
       <!-- <#%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "historique" }" do %>
       <i class="fas fa-history"></i>Mon Historique
       <#% end %> -->
+      <% if current_user.admin || current_user.rh %>
+        <%= link_to edit_company_path(@user.company), class: "navbar-wagon-item navbar-wagon-link
+          #{ 'navbar-active' if params[:action] == "index" } " do%>
+          <i class="fas fa-tachometer-alt"></i>Dashboard
+        <% end %>
+      <% end %>
       <% if current_user.admin %>
         <%= link_to admin_root_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
         <i class="fa fa-cog"></i>Admin

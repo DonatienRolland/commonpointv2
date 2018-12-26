@@ -1,0 +1,152 @@
+
+<div class="form-flex-column" id="tab-stat" style="height: calc(100vh - 95px);display: flex; flex-direction: row;">
+  <div class="background-white" style="width: 241px; margin: 0 10px; padding: 20px; justify-content: space-between;">
+    <div class="company-info">
+      <p><%= @company.nom %> </p>
+
+    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Statistiques</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Événement à venir</a>
+      </li>
+    </ul>
+
+
+  </div>
+  <div class="tab-content background-white" id="myTabContent">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" style="overflow-y: hidden; overflow-x: hidden; height: 100%;">
+      <div id="stat-grid">
+        <div id="container2" class="utilisteurs-actifs">
+
+        </div>
+        <div class="evenement-coming" id="container">
+        </div>
+        <div class="activities-partiques one-number">
+          <p><strong>12</strong> événements sont organisés cette semaine</p>
+        </div>
+        <div class="liciences one-number">
+          <p><strong><%= @company.users.count %></strong> licences utilisées sur 100 disponibles</p>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <%= render 'companies/evenements' %>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+<style>
+
+@import 'https://code.highcharts.com/css/highcharts.css';
+
+</style>
+
+
+
+<%= content_for(:after_js) do %>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script>
+
+Highcharts.chart('container2', {
+
+  title: {
+    text: 'Connexions'
+  },
+
+
+  yAxis: {
+    title: {
+      text: 'Nombre de onnexion'
+    }
+  },
+  xAxis: {
+    categories: [
+      'Lundi',
+      'Mardi',
+      'Mercredi',
+      'Jeudi',
+      'Vendredi',
+      'Samedi',
+      'Dimanche'
+    ],
+    plotBands: [{ // visualize the weekend
+      from: 4.5,
+      to: 6.5,
+      color: 'rgba(68, 170, 213, .2)'
+    }]
+  },
+
+  series: [{
+    name: 'visite',
+    data: [2, 3, 4, 6, 9, 1, 0]
+  },
+  {
+    name: 'semaine precedente',
+    data: [1, 2, 3, 8, 2, 1, 2]
+  }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 500
+      },
+      chartOptions: {
+        legend: {
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom'
+        }
+      }
+    }]
+  }
+
+});
+
+  Highcharts.chart('container', {
+
+    chart: {
+      styledMode: true
+    },
+
+    title: {
+      text: 'Activités pratiquées'
+    },
+
+    xAxis: {
+      categories: ['pe', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+
+    series: [{
+      name: 'score',
+      type: 'pie',
+      allowPointSelect: true,
+      keys: ['name', 'y', 'selected', 'sliced'],
+      data: [
+        <% @stat_activity.first(10).each do |activity| %>
+        ['<%= activity[:label] %>', <%= activity[:value] %>, false],
+        <% end %>
+
+      ],
+      showInLegend: true
+    }]
+  });
+</script>
+ <%= javascript_pack_tag "statistiques" %>
+
+<% end %>
+
+
+

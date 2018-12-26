@@ -8,6 +8,8 @@ class Evenement < ApplicationRecord
 
   has_one :activity, through: :user_activity
 
+  has_one :company, through: :user
+
   has_many :materiels, dependent: :destroy
   accepts_nested_attributes_for :materiels, reject_if: :all_blank, allow_destroy: true
 
@@ -19,13 +21,13 @@ class Evenement < ApplicationRecord
     "Privé" => 0,
     Publique: 1
   }
-
   # scope :invited, -> (user) { joins(:participant).merge(Participant.where(user: user)) }
 
   has_many :messages, dependent: :destroy
 
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
 
+  scope :a_venir, -> { where('jour >= ?', DateTime.now) }
 
   validates :user, :user_activity, :type_of_evenement, presence: true
   # validates :jour, presence: true, if: :second_step

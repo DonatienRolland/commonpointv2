@@ -6,6 +6,7 @@ class Participant < ApplicationRecord
 
   scope :order_by_user_name, -> { includes(:user).order('users.prenom')}
 
+  scope :are_coming, -> { where(participe: true)}
   # before_destroy :uncheck_materiel
 
   def uncheck_materiel
@@ -14,6 +15,7 @@ class Participant < ApplicationRecord
       materiel.save
     end
   end
+
 
 end
 

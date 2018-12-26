@@ -21,7 +21,7 @@
     <div class="month-point">
       <h3><%= month_now.strftime("%B").upcase %></h3>
     </div>
-    <% evenements.each do |evenement| %>
+    <% evenements.order('jour').order('heur').each do |evenement| %>
 
         <%= render 'evenements/info-evenement', evenement: evenement %>
     <% end %>

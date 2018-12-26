@@ -1,0 +1,40 @@
+<div class="header">
+  <h4>Événement à venir</h4>
+  <%= form_tag @select_periode_evenement, method: :get do %>
+    <%= select_tag :periode, options_for_select(@perdiode, params[:activity_title]), class:"form-control" %>
+  <% end %>
+</div>
+<div class="tbl-header">
+  <table cellpadding="0" cellspacing="0" border="0">
+    <thead>
+      <tr>
+        <th>lien</th>
+        <th>Activité</th>
+        <th>Participants</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Booster</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="tbl-content">
+  <table cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+      <% @evenements.each do |evenement| %>
+        <tr>
+          <td>
+            <%= link_to evenement_path(evenement[:evenement_id]) do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+          </td>
+          <td><%= evenement[:activity] %></td>
+          <td><%= evenement[:nombre_participant] %></td>
+          <td><%= evenement[:status] %></td>
+          <td class="btn-no-border"><%= evenement[:date] %></td>
+          <td>TODO</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

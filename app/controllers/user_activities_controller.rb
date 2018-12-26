@@ -25,7 +25,7 @@ class UserActivitiesController < ApplicationController
       act.total_user += 1
       act.save
       act_title = @user_activity.activity.title
-      evenements = Evenement.activity_title(act_title).where(full: false, type_of_evenement:"Publique").where('jour <= ?', DateTime.now)
+      evenements = Evenement.activity_title(act_title).a_venir.where(full: false, type_of_evenement:"Publique")
       evenements.each do |evenement|
         evenement.generate_participant(@user, @user === current_user ? true : nil)
       end

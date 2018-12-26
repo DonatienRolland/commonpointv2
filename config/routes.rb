@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     # resources :participants, only: :create
   end
 
+  resources :companies, only: [:show, :edit, :update]
 
 end
