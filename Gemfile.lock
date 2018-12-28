@@ -61,6 +61,7 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    chartkick (3.0.1)
     cloudinary (1.9.1)
       aws_cf_signer
       rest-client
@@ -90,6 +91,8 @@ GEM
     geocoder (1.4.9)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    groupdate (2.5.3)
+      activesupport (>= 3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.2.0)
@@ -243,6 +246,7 @@ DEPENDENCIES
   bootsnap
   bootstrap-sass (~> 3.3)
   carrierwave (~> 1.2)
+  chartkick
   cloudinary (~> 1.9.1)
   cocoon
   devise
@@ -250,6 +254,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass (~> 5.5.0)
   geocoder
+  groupdate (~> 2.5, >= 2.5.2)
   jbuilder (~> 2.0)
   letter_opener
   listen (~> 3.0.5)

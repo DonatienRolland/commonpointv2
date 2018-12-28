@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_24_082104) do
+ActiveRecord::Schema.define(version: 2018_12_28_051525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_12_24_082104) do
     t.string "email_domain"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "licence"
   end
 
   create_table "evenements", force: :cascade do |t|
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_12_24_082104) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "point_group_id"
+    t.boolean "boosted", default: false, null: false
     t.index ["point_group_id"], name: "index_evenements_on_point_group_id"
     t.index ["user_activity_id"], name: "index_evenements_on_user_activity_id"
     t.index ["user_id"], name: "index_evenements_on_user_id"
@@ -138,6 +140,14 @@ ActiveRecord::Schema.define(version: 2018_12_24_082104) do
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "user_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "company_id"
   end
 
   add_foreign_key "activities", "categories"

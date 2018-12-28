@@ -20,11 +20,15 @@ toggleClass();
 import { addNumber } from "../components/addNumber";
 addNumber();
 
-import { tabWithOutNewData } from "../components/editEvenementJs";
+import { tabWithOutNewData, boostedEvenement } from "../components/editEvenementJs";
 tabWithOutNewData();
+boostedEvenement();
 
 import { participationsAjaxShow } from '../components/participationsAjaxShow';
 participationsAjaxShow();
 
 import { materielAjax } from '../components/materielAjax';
 materielAjax();
+
+import { switchPeriod } from '../components/statistique';
+switchPeriod();

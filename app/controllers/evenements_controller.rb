@@ -16,6 +16,22 @@ class EvenementsController < ApplicationController
     @today = Date.today
   end
 
+  def historique
+    @user = User.find(params[:user_id])
+    @today = Date.today
+    all_evenements = Evenement.where('jour <= ?', @today).joins(:participants).where(user_id: @user.id)
+    @user_all_evenements = all_evenements
+    @activities = all_evenements.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous").uniq
+
+    filtering(@user_all_evenements)
+
+    @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
+
+    @months = [ -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11]
+    @now = Time.zone.now.beginning_of_month
+    authorize @user
+  end
+
   def create
     @user = User.find(params[:user_id])
     @evenement = Evenement.new(evenement_params)
@@ -114,12 +130,13 @@ class EvenementsController < ApplicationController
     authorize @user
   end
 
+
   def update_materiel
     @evenement = Evenement.find(params[:id])
     params_value = params[:params_value]
     materiel = Materiel.find(params_value[:materiel])
     @user = User.find(params_value[:user])
-    p "Is it checked? #{params_value[:checked]}"
+
     if params_value[:checked] == "true"
       p "ok you are checked"
       participant = Participant.where(user: @user, evenement: @evenement).first
@@ -137,6 +154,14 @@ class EvenementsController < ApplicationController
     authorize @evenement
   end
 
+  def update_boosted
+    p "You in with #{params}"
+    @user = User.find(params[:user_id])
+    Evenement.where(id: params[:evenement_id]).update_all(boosted: params[:boosted] )
+    head :ok
+    p "All good"
+    authorize @user
+  end
 
   def destroy
 

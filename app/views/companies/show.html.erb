@@ -1,0 +1,21 @@
+<div class="form-flex-column" style="height: calc(100vh - 95px)">
+  <div class="background-white" style="display: flex; height: 241px; margin: 16px 0; padding: 20px; justify-content: space-between;">
+    <div class="company-info">
+      <%= image_tag @company.icon? ? @company.icon : @no_icon %>
+      <p><%= @company.nom %> </p>
+      <p><%= @company.description %> </p>
+    </div>
+
+    <div class="company-users">
+      <p><%= @company.users.count %> utilisateurs</p>
+      <p><%= @company.activities.uniq.count %> activités pratiquées</p>
+      <%= link_to 'accès à mes activités', edit_user_path(@user), class:'btn-no-border' %>
+    </div>
+  </div>
+
+  <h3>Activités boostées par votre entreprise</h3>
+  <div class="background-white" style="overflow-y: scroll; overflow-x: hidden;">
+    <%= render 'evenements/list-evenements', user: @user, evenements: @evenements %>
+  </div>
+
+</div>

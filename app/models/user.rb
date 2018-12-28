@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable and :omniauthable, :trackable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+         :recoverable, :rememberable, :validatable
 
   validates :prenom, :nom, presence: true
 
@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   has_many :evenements, dependent: :destroy
 
-  has_many :participants, dependent: :destroy
+  # has_many :participants, dependent: :destroy
 
   belongs_to :company
   accepts_nested_attributes_for :company, :reject_if => :all_blank

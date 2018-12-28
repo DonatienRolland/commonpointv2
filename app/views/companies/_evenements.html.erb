@@ -1,10 +1,8 @@
 <div class="header">
   <h4>Événement à venir</h4>
-  <%= form_tag @select_periode_evenement, method: :get do %>
-    <%= select_tag :periode, options_for_select(@perdiode, params[:activity_title]), class:"form-control" %>
-  <% end %>
+
 </div>
-<div class="tbl-header">
+<div class="tbl-header" data-url="<%= update_boosted_evenement_path %>" data-user="<%= @user.id %>">
   <table cellpadding="0" cellspacing="0" border="0">
     <thead>
       <tr>
@@ -31,8 +29,9 @@
           <td><%= evenement[:activity] %></td>
           <td><%= evenement[:nombre_participant] %></td>
           <td><%= evenement[:status] %></td>
-          <td class="btn-no-border"><%= evenement[:date] %></td>
-          <td>TODO</td>
+          <td><%= evenement[:date] %></td>
+          <td class="btn-no-border tr-evenement" data-evenement="<%= evenement[:evenement_id] %>" data-boosted="<%= evenement[:boosted] ? "false" : "true" %>">
+            <%= evenement[:boosted] ? "Retrier" : "Booster" %></td>
         </tr>
       <% end %>
     </tbody>

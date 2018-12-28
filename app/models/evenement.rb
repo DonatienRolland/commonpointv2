@@ -1,5 +1,6 @@
 class Evenement < ApplicationRecord
   belongs_to :user
+
   belongs_to :user_activity, required: false
   accepts_nested_attributes_for :user_activity, :reject_if => :all_blank
   accepts_nested_attributes_for :user, :reject_if => :all_blank
@@ -14,7 +15,7 @@ class Evenement < ApplicationRecord
   accepts_nested_attributes_for :materiels, reject_if: :all_blank, allow_destroy: true
 
   has_many :participants, dependent: :destroy
-  has_many :users, through: :participant
+  # has_many :users, through: :participant # Attention si on accepte c'est relation, cela impact company.evenements
   accepts_nested_attributes_for :participants, reject_if: :all_blank, allow_destroy: true
 
   enum type_of_evenement: {
@@ -26,8 +27,9 @@ class Evenement < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
-
+  scope :from_to, -> (start_date, end_date) { where('jour >= ? AND jour <= ?', start_date, end_date) }
   scope :a_venir, -> { where('jour >= ?', DateTime.now) }
+  scope :boosted, -> { where( boosted: true ) }
 
   validates :user, :user_activity, :type_of_evenement, presence: true
   # validates :jour, presence: true, if: :second_step

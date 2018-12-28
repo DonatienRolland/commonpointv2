@@ -45,3 +45,6 @@ gem "simple_calendar", "~> 2.0"
 
 # search_bar for activities
 gem 'pg_search'
+
+gem 'groupdate', '~> 2.5', '>= 2.5.2'
+gem "chartkick"

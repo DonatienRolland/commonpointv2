@@ -1,6 +1,10 @@
 <div class="navbar-wagon">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+  <% if user_signed_in? %>
+    <%= link_to company_path(@user.company), class: "navbar-wagon-brand" do %>
+      <%= image_tag "logo.png", height: 50 %>
+    <% end %>
+  <% else %>
     <%= image_tag "logo.png", height: 50 %>
   <% end %>
 
@@ -10,27 +14,27 @@
     <% if user_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to root_path, class: "navbar-wagon-item navbar-wagon-link
-        #{ 'navbar-active' if params[:action] == "dashboard" }
+      <%= link_to company_path(@user.company), class: "navbar-wagon-item navbar-wagon-link
+        #{ 'navbar-active' if params[:controller] == "companies" && params[:action] == "show" }
       " do %>
         <i class="fas fa-home"></i>Accueil
       <% end %>
-      <%= link_to user_evenements_path(@user), class: "navbar-wagon-item navbar-wagon-link
-        #{ 'navbar-active' if params[:action] == "index" } " do%>
+      <%= link_to user_evenements_path(@user.id), class: "navbar-wagon-item navbar-wagon-link
+        #{ 'navbar-active' if params[:controller] == "evenements" && params[:action] == "index" } " do%>
       <i class="far fa-calendar-alt"></i>Mes événements
       <% end %>
 
-      <!-- <#%= link_to historique_user_points_path(@user), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "historique" }" do %>
+      <%= link_to historique_user_evenements_path(@user.id), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:controller] == "evenements" && params[:action] == "historique" }" do %>
       <i class="fas fa-history"></i>Mon Historique
-      <#% end %> -->
+      <% end %>
       <% if current_user.admin || current_user.rh %>
-        <%= link_to edit_company_path(@user.company), class: "navbar-wagon-item navbar-wagon-link
-          #{ 'navbar-active' if params[:action] == "index" } " do%>
+        <%= link_to edit_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link
+          #{ 'navbar-active' if params[:controller] == "companies" && params[:action] == "edit" } " do%>
           <i class="fas fa-tachometer-alt"></i>Dashboard
         <% end %>
       <% end %>
       <% if current_user.admin %>
-        <%= link_to admin_root_path, class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
+        <%= link_to admin_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
         <i class="fa fa-cog"></i>Admin
         <% end %>
       <% end %>
@@ -47,7 +51,7 @@
           <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
-              <%= link_to edit_user_path(@user) do %>
+              <%= link_to edit_user_path(@user.id) do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
               <% end %>
             </li>
@@ -77,7 +81,7 @@
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <% if user_signed_in? %>
           <li>
-            <%= link_to root_path do %>
+            <%= link_to company_path(@user.company) do %>
             <i class="fas fa-home"></i> Accueil
           <% end %>
           </li>

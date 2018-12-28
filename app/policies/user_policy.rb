@@ -17,6 +17,10 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
+  def historique?
+    is_user_the_owner_or_admin?
+  end
+
   def update_status_participant?
     user == record || user.admin?
   end
@@ -24,6 +28,26 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     user == record || user.admin?
   end
+
+  def visitors_by_months?
+    user == record || user.admin?
+  end
+
+  def visitors_by_days?
+    user == record || user.admin?
+  end
+
+  def visitors_by_weeks?
+    user == record || user.admin?
+  end
+  def switchPeriod?
+    user == record || user.admin?
+  end
+
+  def update_boosted?
+    user.rh? || user.admin?
+  end
+
 
   private
 

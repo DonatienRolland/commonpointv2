@@ -1,59 +1,9 @@
 <%= render 'new', user: @user, evenement: @evenement %>
 
 
+<%= render 'evenements/filtre', activities:@activities  %>
 
 
-  <div id="user_activity-search_bar">
-      <div class="form-space">
-        <h2 style="font-size: 32px; margin-right: 5px;">Filtré par activités  </h2>
-        <%= form_tag @path_select_date, method: :get do %>
-
-            <%= select_tag :activity_title, options_for_select(@activities, params[:activity_title]), class:"form-control" %>
-            <%= button_tag class:"btn btn-start-order" do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-
-        <% end %>
-      </div>
-      <div class="examples hidden-xs">
-        <div class="example missing-particiapants">
-          <p>Manque de personne</p>
-          <div class="red-color-border invited-bloc">
-            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
-              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <div class="example full">
-          <p>Nombre de participants suffisant</p>
-          <div class="green-color-border invited-bloc">
-            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
-              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <div class="example waiting-for-answer">
-          <p>En attente de réponse</p>
-          <div class="invited-bloc">
-            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
-              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <div class="example accepted">
-          <p>Accepté</p>
-          <div class="green-background invited-bloc">
-            <%= link_to "#", class:"stars point-calendar modal-button radius-points-calendar" do %>
-              <div class="contain-image icon_cercle" style="background-image: url('<%= @no_icon %>')">
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
 
 <!--
 <h3>Vous avez <strong><#%= pluralize @points.size, "Point" %></strong> correspondant à votre recherche </h3> -->

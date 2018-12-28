@@ -29,9 +29,6 @@
 .blue-text {
   color: $light-blue !important;
 }
-#user_activity-search_bar {
-
-  // tab
   .cp-tab {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -52,6 +49,9 @@
       font-size: 0.8em;
     }
   }
+// #user_activity-search_bar {
+
+  // tab
   .nav-pills > li:hover a {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -85,7 +85,7 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
-}
+// }
 
 .stars {
   display: flex;

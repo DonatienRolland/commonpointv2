@@ -1,0 +1,8 @@
+<div style="    display: flex;
+    flex-direction: column;">
+<%= render 'evenements/filtre', activities:@activities  %>
+
+<div class="background-white tab-content "  style="overflow-y: scroll; overflow-x: hidden; height: calc(100vh -300px)">
+  <%= render 'evenements/list-evenements', user: @user, evenements: @user_all_evenements %>
+</div>
+</div>
