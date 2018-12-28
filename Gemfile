@@ -48,3 +48,5 @@ gem 'pg_search'
 
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem "chartkick"
+
+gem 'forest_liana'
