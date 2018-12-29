@@ -52,7 +52,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @user = current_user
     @no_icon = "https://res.cloudinary.com/dj7bq8py7/image/upload/c_scale,h_84,q_99/v1541578509/logo.jpg"
-    @evenements = Evenement.all.joins(:participants).where(user: @user, type_of_evenement: "Publique").boosted
+    @evenements = Evenement.all.where(type_of_evenement: "Publique").joins(:participants).where(participants: { user: @user}).boosted
     @months = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     @now = Time.zone.now.beginning_of_month
     @today = Date.today

@@ -1,5 +1,8 @@
 <div class="navbar-wagon">
   <!-- Logo -->
+  <% if @user.nil? && current_user.present? %>
+    <% @user = current_user %>
+  <% end %>
   <% if user_signed_in? %>
     <%= link_to company_path(@user.company), class: "navbar-wagon-brand" do %>
       <%= image_tag "logo.png", height: 50 %>
@@ -28,8 +31,7 @@
       <i class="fas fa-history"></i>Mon Historique
       <% end %>
       <% if current_user.admin || current_user.rh %>
-        <%= link_to edit_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link
-          #{ 'navbar-active' if params[:controller] == "companies" && params[:action] == "edit" } " do%>
+        <%= link_to edit_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link " do%>
           <i class="fas fa-tachometer-alt"></i>Dashboard
         <% end %>
       <% end %>
@@ -55,11 +57,6 @@
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
               <% end %>
             </li>
-            <!-- <li>
-              <#%= link_to "#" do %>
-                <i class="fa fa-cog"></i>  <#%= t(".settings", default: "Settings") %>
-              <#% end %>
-            </li> -->
             <li>
               <%= link_to destroy_user_session_path, method: :delete do %>
                 <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
@@ -81,26 +78,32 @@
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <% if user_signed_in? %>
           <li>
+            <%= link_to edit_user_path(@user.id) do %>
+              <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+            <% end %>
+          </li>
+          <li>
             <%= link_to company_path(@user.company) do %>
-            <i class="fas fa-home"></i> Accueil
+              <i class="fas fa-home"></i>Accueil
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_evenements_path(@user.id) do%>
+              <i class="far fa-calendar-alt"></i>Mes événements
+            <% end %>
+          </li>
+          <li>
+            <%= link_to historique_user_evenements_path(@user.id) do %>
+              <i class="fas fa-history"></i>Mon Historique
+            <% end %>
+          </li>
+          <% if current_user.admin %>
+            <li>
+              <%= link_to admin_company_path(@user.company.id) do %>
+                <i class="fa fa-cog"></i>Admin
+              <% end %>
+            </li>
           <% end %>
-          </li>
-
-          <li>
-           <!--  <#%= link_to home_user_points_path(@user) do %>
-              <i class="far fa-calendar-alt"></i> Mes Points
-            <#% end % -->>
-          </li>
-          <li>
-            <!-- <#%= link_to historique_user_points_path(@user) do %>
-              <i class="fas fa-history"></i> Mon Historique
-            <#% end %> -->
-          </li>
-          <li>
-          <!--   <#%= link_to user_activities_path do %>
-              <i class="far fa-heart"></i> Mes Activités
-            <#% end %> -->
-          </li>
           <li>
             <%= link_to destroy_user_session_path, method: :delete do %>
                 <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>

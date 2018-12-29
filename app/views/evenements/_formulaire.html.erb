@@ -4,19 +4,10 @@
       <%= f.label :user_activity, label:'Activité', class:"form-label", required: false %>
       <%= f.object.user_activity.activity.title %>
     </div>
-
-    <!-- <div class="text-center" style="display: flex; justify-content: space-around;"> -->
-      <div class="form-group">
-        <%= f.label :type_of_evenement, label:"Type d'évenement", class:"form-label", required: false %>
-        <%= f.input :type_of_evenement, label: false, placeholder: 'Quel est le type de evenement?', collection: Evenement.type_of_evenements.map { |key, value| [key.humanize, key] } , class:"form-control" %>
-      </div>
-      <!-- <button type="button" class="btn btn-start-order" style="padding: 0; border: 0;     width: 20%;" data-toggle="modal" data-target="#newevenementModal">
-        <i class="far fa-edit"></i>
-      </button> -->
-    <!-- </div> -->
-
-
-
+    <div class="form-group">
+      <%= f.label :type_of_evenement, label:"Type d'évenement", class:"form-label", required: false %>
+      <%= f.input :type_of_evenement, label: false, placeholder: 'Quel est le type de evenement?', collection: Evenement.type_of_evenements.map { |key, value| [key.humanize, key] } , class:"form-control" %>
+    </div>
 
   </div>
   <div id="uprigth-grid" class="space-arround">

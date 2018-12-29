@@ -50,3 +50,6 @@ gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem "chartkick"
 
 gem 'forest_liana'
+
+gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'

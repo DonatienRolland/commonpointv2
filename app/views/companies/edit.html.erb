@@ -19,8 +19,9 @@
       <h3>Recherche</h3>
       <%= form_tag charts_switchPeriod_path, method: :get, remote: false do %>
         <%= select_tag :periode, options_for_select(@perdiode, params[:activity_title]), class:"form-control", id:"typeOfPeriode" %>
-
+      <div id="calendarPeriod" class="hidden">
         <%= text_field_tag :presonnalize_date, nil, label: false, class:"datepicker form-control hidden", tabindex:"1"%>
+      </div>
       <% end %>
 
       <div class="btn-start-order btn" id="sendPeriod">

@@ -19,7 +19,7 @@ class EvenementsController < ApplicationController
   def historique
     @user = User.find(params[:user_id])
     @today = Date.today
-    all_evenements = Evenement.where('jour <= ?', @today).joins(:participants).where(user_id: @user.id)
+    all_evenements = Evenement.where('jour < ?', @today).joins(:participants).where(participants: { user_id: @user.id })
     @user_all_evenements = all_evenements
     @activities = all_evenements.collect{ |u| u.user_activity.activity.title}.insert(0, "Tous").uniq
 
@@ -50,7 +50,7 @@ class EvenementsController < ApplicationController
 
   def show
     @evenement = Evenement.find(params[:id])
-    @user = @evenement.user
+    @user = current_user
     @message = Message.new
     @messages = Message.where(evenement: @evenement).order('created_at ASC')
     @participant = Participant.where(user: @user, evenement: @evenement).first
@@ -107,7 +107,6 @@ class EvenementsController < ApplicationController
     if @evenement.update(evenement_params)
       update_participants(@evenement, current_user)
       # TODO verifier si la seconde date s'energriser
-
       if params[:second_date].present? && params[:second_date] != ""
         create_a_second_evenement_with(params[:second_date],params[:second_heur] , @evenement, current_user)
         redirect_to mes_evenements_evenement_path( @evenement ), flash: {notice: "Tout est en ordre"}
@@ -123,7 +122,13 @@ class EvenementsController < ApplicationController
   def update_status_participant
     @evenement = Evenement.find(params[:id])
     @user = @evenement.user
-
+    if !params[:status] || params[:status] == "false"
+      materiels = Materiel.where(participant_id: params[:participant_id], evenement_id: params[:id])
+      materiels.each do |materiel|
+        materiel.participant = nil
+        materiel.save
+      end
+    end
     Participant.where(id: params[:participant_id]).update_all(participe: params[:status] )
     @evenement.check_if_full
     head :ok
@@ -164,7 +169,11 @@ class EvenementsController < ApplicationController
   end
 
   def destroy
-
+    @evenement = Evenement.find(params[:id])
+    @user = @evenement.user
+    @evenement.destroy
+    redirect_to user_evenements_path(@user)
+    authorize @user
   end
 
   def mes_evenements
@@ -212,7 +221,9 @@ private
       new_evenement = Evenement.new(evenement.attributes.merge(jour: date, heur: heure ))
       new_evenement.id = nil
       new_evenement.save
-      new_evenement.generate_participant(user, user === current_user ? true : nil)
+      evenement.participants.each do |participant|
+        new_evenement.generate_participant(participant.user, participant.user === current_user ? true : nil)
+      end
       evenement.materiels.each do |materiel|
         equi = Materiel.create!(materiel.attributes.merge(id: nil, evenement: new_evenement))
       end

@@ -1,7 +1,7 @@
 class EvenementPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.joins(:participants).where(user_id: user.id)
+      scope.joins(:participants).where(participants: { user_id: user.id })
     end
   end
 

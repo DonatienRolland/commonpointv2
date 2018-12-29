@@ -33,12 +33,14 @@
         </div>
         <%= render 'evenements/messages', user: @user, evenement: @evenement %>
       </div>
-      <div class="text-center btn-save">
-        <% if @evenement.point_group.evenements.count > 1 %>
-          <%= link_to 'Mes événement', mes_evenements_evenement_path( @evenement ), class:"btn-no-border" %>
-        <% end %>
-        <%= link_to 'modifier', edit_evenement_path(@evenement), class:"btn btn-start-order"%>
-      </div>
+      <% if @user == @evenement.user %>
+        <div class="text-center btn-save">
+          <% if @evenement.point_group.evenements.count > 1 %>
+            <%= link_to 'Mes événement', mes_evenements_evenement_path( @evenement ), class:"btn-no-border" %>
+          <% end %>
+          <%= link_to 'modifier', edit_evenement_path(@evenement), class:"btn btn-start-order"%>
+        </div>
+      <% end %>
     </div>
 
 

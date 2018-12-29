@@ -7,13 +7,14 @@ flatpickr(".datepicker", {
   enableTime: false,
   mode: "range",
   dateFormat: "Y-m-d",
+  inline: true
 })
 
 
 
 flatpickr(".onlydatepicker", {
   enableTime: false,
-  // altInput: true,
+  minDate: "today",
   altFormat: "D j F Y",
   dateFormat: "d/m/Y",
   allowInput: true,

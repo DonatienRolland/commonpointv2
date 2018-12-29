@@ -37,19 +37,23 @@
       </div>
     </div>
     <div class="col-lg-3 col-sm-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path(evenement) %>" data-participant="<%= @user.is_participant?(evenement).id %> " style=" display: flex; align-items: center; justify-content: center;">
-      <% if evenement.jour < @today %>
-          <p class="btn-start-order" style="font-size: 25px">Passé</p>
+      <% if evenement.user.id == @user.id %>
+        <p class="btn-no-border" style="font-size: 25px">Organisateur</p>
       <% else %>
-        <% if evenement.full && !@user.is_participant?(evenement).participe %>
-          <p class="red-background " style="font-size: 25px">Complet</p>
-        <% elsif @user.is_participant?(evenement).participe ||  !evenement.full %>
+        <% if evenement.jour < @today %>
+            <p class="btn-start-order" style="font-size: 25px">Passé</p>
+        <% else %>
+          <% if evenement.full && !@user.is_participant?(evenement).participe %>
+            <p class="red-background " style="font-size: 25px; cursor: auto;">Complet</p>
+          <% elsif @user.is_participant?(evenement).participe ||  !evenement.full %>
 
-          <% if @user.is_participant?(evenement).participe %>
-            <%= link_to "Quitter", "#",class:"changingStatus btn-start-order", data:{ status:false}, remote: true, authenticity_token: true %>
-          <% else %>
-            <%= link_to "S'inscrire", "#",class:"changingStatus btn-start-order", data:{ status:true}, remote: true, authenticity_token: true %>
-            <% if @user.is_participant?(evenement).participe.nil? %>
-              <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+            <% if @user.is_participant?(evenement).participe %>
+              <%= link_to "Quitter", "#",class:"changingStatus btn-start-order", data:{ status:false}, remote: true, authenticity_token: true %>
+            <% else %>
+              <%= link_to "S'inscrire", "#",class:"changingStatus btn-start-order", data:{ status:true}, remote: true, authenticity_token: true %>
+              <% if @user.is_participant?(evenement).participe.nil? %>
+                <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>

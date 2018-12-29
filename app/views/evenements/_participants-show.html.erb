@@ -19,12 +19,20 @@
       <% end %>
     </div>
     <div class="col-xs-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path %>" data-participant="<%= @participant.id %> ">
-      <% if @participant.participe %>
-        <%= link_to "Quitter", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+      <% if @evenement.user_id == @user.id %>
+           <p class="btn-no-border " style="font-size: 25px; cursor: auto;">Organisateur</p>
       <% else %>
-        <%= link_to "S'inscrire", "#",class:"changingStatus btn-no-border", data:{ status:true}, remote: true, authenticity_token: true %>
-        <% if @participant.participe.nil? %>
-          <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+        <% if @participant.participe %>
+          <%= link_to "Quitter", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+        <% else %>
+          <% if evenement.full %>
+            <p class="red-background " style="font-size: 25px; cursor: auto;">Complet</p>
+          <% else %>
+            <%= link_to "S'inscrire", "#",class:"changingStatus btn-no-border", data:{ status:true}, remote: true, authenticity_token: true %>
+            <% if @participant.participe.nil? %>
+              <%= link_to "Non merci", "#",class:"changingStatus btn-no-border", data:{ status:false}, remote: true, authenticity_token: true %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -42,7 +50,11 @@
           </div>
         </div>
         <div class="col-xs-3">
-          <p>participe</p>
+          <% if @evenement.user_id == participant[:user_id] %>
+            <p class="btn-no-border " style="font-size: 25px; cursor: auto;">Organisateur</p>
+          <% else %>
+            <p class="btn-no-border " style="font-size: 25px; cursor: auto;">participe</p>
+          <% end %>
         </div>
       </div>
     <% end %>

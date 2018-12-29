@@ -69,7 +69,7 @@ class Evenement < ApplicationRecord
   end
 
   def check_if_full
-    if self.nombre_max <= self.participants.where(participe: true).count
+    if self.nombre_max.present? && self.nombre_max <= self.participants.where(participe: true).count
       self.full = true
     else
       self.full = false

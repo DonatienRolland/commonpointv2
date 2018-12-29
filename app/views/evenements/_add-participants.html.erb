@@ -1,29 +1,32 @@
 <div class="modal" id="listParticipantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-  <div id="participants" class="padding-blocks" style="padding: 5px;">
+  <div id="participants" class="padding-blocks">
     <h3 class="title-onglet">Participants</h3>
     <div class="modal-content">
       <a class="close cross abs-right-top" data-dismiss="modal" id="close" aria-label="Close">+</a>
 
-      <div class="background-white row">
+      <div class="background-white" id="gridParticipantModal">
 
-        <div class="col-xs-3 row" style="padding-right:10px;">
-          <div class="col-lg-12 col-xs-2 tabLevel" data-target="all">
+
+        <div class="left-modal-participants">
+          <div class="tabLevel btn-no-border" data-target="all">
             <h3 class="hidden-xs">Tout les participants (<%= @users.count %>)</p>
-            <h3 class="hidden-lg hidden-sd">Tous</h3>
+            <h3 class="visible-xs">Tous</h3>
           </div>
           <% @stars.each_with_index do |nombre, index| %>
             <% if nombre.present? %>
-              <div class="col-lg-12 col-xs-2 tabLevel" data-target="<%= index + 1 %>">
+              <div class="tabLevel btn-no-border" data-target="<%= index + 1 %>">
                 <h3 class="hidden-xs"><%= index + 1 %> étoiles (<%= nombre %>)</h3>
-                <h3 class="hidden-lg hidden-sd"><%= index + 1 %></h3>
+                <h3 class="visible-xs"><%= index + 1 %></h3>
               </div>
             <% end %>
           <% end %>
         </div>
+        <div class="title-middle">
+          <h4>Vos collègues</h4>
+        </div>
 
-        <div class="col-xs-4" style="padding: 0 21px;">
-          <h4>ToDo Tab</h4>
+        <div class="middle-modal-participants">
             <% @users.each do |user| %>
               <div class="userToAdd tab_<%= user[:level] %> " data-user="<%= user[:user_id] %>" id="user_removed_<%= user[:user_id] %>" style="display: flex;">
                 <% set_user = User.find(user[:user_id]) %>
@@ -34,8 +37,11 @@
               </div>
             <% end %>
         </div>
+        <div class="title-right">
+          <h4>Futurs participants</h4>
+        </div>
 
-        <div class="col-xs-offset-1 col-xs-4" style="padding: 0 21px;">
+        <div class="right-modal-participants">
           <% @users.each do |user| %>
             <div class="userToRemove hidden" id="user_added_<%= user[:user_id] %>" style="display: flex;" data-user="<%= user[:user_id] %>">
               <% set_user = User.find(user[:user_id]) %>
@@ -46,10 +52,10 @@
             </div>
           <% end %>
         </div>
-
-
+        <div class="hidden">
+          <%= text_field_tag :participants, nil, label: false, id:"participantsToCreate", value:"#{@participants.join(', ')}" %>
+        </div>
       </div>
-      <%= text_field_tag :participants, nil, label: false, id:"participantsToCreate", value:"#{@participants.join(', ')}" %>
     </div>
   </div>
 </div>

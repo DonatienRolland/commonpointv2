@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     company_path(current_user.company)
   end
 
+  def after_sign_up_path_for(resource_or_scope)
+    user_activities_path(current_user)
+  end
+
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:prenom, :nom])

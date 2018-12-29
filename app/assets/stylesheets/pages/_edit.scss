@@ -83,14 +83,23 @@
 }
 
 @media(max-width: 720px) {
-  #container-grid  {
-    display: block;
+  #container-grid, #formulaire  {
+    height: 100%;
+    display: block !important;
+    .localisation {
+      height: 340px;
+    }
+  }
+  #formulaire {
+    .form-group {
+      padding: 1%;
+    }
   }
 }
 // formulaire
 
 #formulaire {
-  height: calc(100% - 28px);
+  // height: calc(100% - 28px);
   width: 100%;
   display: grid;
   grid-template-columns: 25% 1fr;
@@ -122,4 +131,55 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+
+#gridParticipantModal {
+  display: grid;
+  grid-template-columns: 25% 1fr 1fr;
+  grid-template-rows: 50px 1fr;
+  padding: 2%;
+  // height: calc(100vh - 20%);
+  .left-modal-participants {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+  }
+  .middle-modal-participants {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+  }
+  .right-modal-participants {
+    grid-column: 3 / span 1;
+    grid-row: 2 / span 1;
+  }
+  #participantsToCreate {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+  }
+  .title-middle {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+  }
+  .title-right {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+  }
+  .middle-modal-participants, .right-modal-participants {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 300px;
+  }
+}
+.userToRemove, .userToAdd, .tabLevel {
+  height: 50px;
+}
+@media(max-width: 720px) {
+  #gridParticipantModal  {
+    display: block;
+  }
+  .left-modal-participants {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 }

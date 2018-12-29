@@ -22,11 +22,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_status_participant?
-    user == record || user.admin?
+    Participant.where(user_id: record.id).count > 1 || user.admin?
   end
 
   def destroy?
-    user == record || user.admin?
+    is_user_the_owner_or_admin?
   end
 
   def visitors_by_months?
@@ -47,7 +47,6 @@ class UserPolicy < ApplicationPolicy
   def update_boosted?
     user.rh? || user.admin?
   end
-
 
   private
 

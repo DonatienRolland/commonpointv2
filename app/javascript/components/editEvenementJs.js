@@ -30,11 +30,11 @@ function tabWithOutNewData(){
 export { tabWithOutNewData }
 
 function boostedEvenement(){
-  const btns = document.querySelectorAll('.tr-evenement')
   const header = document.querySelector('.tbl-header')
-  var user_id = header.dataset.user
-  var url = header.dataset.url
   if (header) {
+    const btns = document.querySelectorAll('.tr-evenement')
+    var user_id = header.dataset.user
+    var url = header.dataset.url
     btns.forEach((btn) => {
       btn.addEventListener('click', function(){
         var evenement_id = String(btn.dataset.evenement)
