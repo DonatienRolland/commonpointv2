@@ -36,8 +36,11 @@
         <% end %>
       <% end %>
       <% if current_user.admin %>
-        <%= link_to admin_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %>
+        <!-- <#%= link_to admin_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %> -->
         <i class="fa fa-cog"></i>Admin
+        <!-- <#% end %> -->
+        <%= link_to sidekiq_web_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+          <i class="fa fa-cog"></i>Sidekiq
         <% end %>
       <% end %>
 
@@ -99,9 +102,9 @@
           </li>
           <% if current_user.admin %>
             <li>
-              <%= link_to admin_company_path(@user.company.id) do %>
+              <!-- <#%= link_to admin_company_path(@user.company.id) do %> -->
                 <i class="fa fa-cog"></i>Admin
-              <% end %>
+              <!-- <#% end %> -->
             </li>
           <% end %>
           <li>
