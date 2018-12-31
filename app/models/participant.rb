@@ -19,7 +19,7 @@ class Participant < ApplicationRecord
     end
   end
 
-  private
+  # private
 
   def send_invitation_email
      EvenementMailer.invitation_evenement(self.user.id, self.evenement.id).deliver_now

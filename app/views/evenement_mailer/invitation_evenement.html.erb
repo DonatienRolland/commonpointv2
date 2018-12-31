@@ -4,14 +4,9 @@
 nouvel événement.</p>
 
 
-<p><%= "Status: #{@type_of_evenement}" %> </p>
-<p><%= "Activité: #{@evenement.activity_title}"  %> </p>
-<p><%= "Date & heure: #{@evenement.jour} #{@evenement.heur}" %> </p>
-<p><%= "Lieu: #{@evenement.adresse}"  %> </p>
-
 <p> <%= "#{@evenement.user.full_name} vous invite à son évènement
  #{@evenement.activity_title}.
-Détail événement : {@evenement.type_of_evenement} #{@evenement.jour} #{@evenement.heur} #{@evenement.adresse} " %>
+Détail événement : status: #{@evenement.type_of_evenement} date: #{@evenement.jour} #{@evenement.heur} et lieu: #{@evenement.adresse} " %>
 
 
 TODO
