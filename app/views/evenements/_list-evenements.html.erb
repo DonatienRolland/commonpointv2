@@ -3,16 +3,17 @@
   <% if @months.first < @months.second %>
     <% month_now = @now + (num - 1).month  %>
     <% if month_now == @today.strftime("%B") %>
-      <% evenements = evenements.where('jour between ? and ?', @today, month_next) %>
+
+      <% evenements = evenements_all.where('jour between ? and ?', @today, month_next) %>
     <% else %>
-      <% evenements = evenements.where('jour between ? and ?', month_now, month_next) %>
+      <% evenements = evenements_all.where('jour between ? and ?', month_now, month_next) %>
     <% end %>
   <% else %>
     <% month_now = @now + (num + 1).month  %>
     <% if month_now == @today.strftime("%B") %>
-      <% evenements = evenements.where('jour between ? and ?', month_next, @today) %>
+      <% evenements = evenements_all.where('jour between ? and ?', month_next, @today) %>
     <% else %>
-      <% evenements = evenements.where('jour between ? and ?', month_next, month_now) %>
+      <% evenements = evenements_all.where('jour between ? and ?', month_next, month_now) %>
     <% end %>
   <% end %>
 
@@ -22,7 +23,6 @@
       <h3><%= month_now.strftime("%B").upcase %></h3>
     </div>
     <% evenements.order('jour').order('heur').each do |evenement| %>
-
         <%= render 'evenements/info-evenement', evenement: evenement %>
     <% end %>
   <% end %>

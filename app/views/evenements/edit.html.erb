@@ -34,6 +34,7 @@
           <%= link_to 'Mes événement', mes_evenements_evenement_path( @evenement ), class:"btn-no-border" %>
         <% end %>
         <%= f.submit 'Enregistrer', class:"btn btn-start-order" %>
+         <%= link_to 'Supprimer', evenement_path(@evenement),  method: :delete, data: { confirm: 'Are you sure?' }, class:"btn-no-border"%>
       </div>
     </div>
 

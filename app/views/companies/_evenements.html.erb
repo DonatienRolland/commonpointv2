@@ -8,6 +8,7 @@
       <tr>
         <th>lien</th>
         <th>Activité</th>
+        <th>Type</th>
         <th>Participants</th>
         <th>Status</th>
         <th>Date</th>
@@ -27,6 +28,7 @@
             <% end %>
           </td>
           <td><%= evenement[:activity] %></td>
+          <td><%= evenement[:type_of_evenement] %></td>
           <td><%= evenement[:nombre_participant] %></td>
           <td><%= evenement[:status] %></td>
           <td><%= evenement[:date] %></td>

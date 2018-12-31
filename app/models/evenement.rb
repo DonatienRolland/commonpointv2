@@ -28,7 +28,7 @@ class Evenement < ApplicationRecord
 
   scope :activity_title, -> (current_title) { joins(:user_activity).merge(UserActivity.by_activity_title(current_title)) }
   scope :from_to, -> (start_date, end_date) { where('jour >= ? AND jour <= ?', start_date, end_date) }
-  scope :a_venir, -> { where('jour >= ?', DateTime.now) }
+  scope :a_venir, -> { where('jour >= ?', Date.today) }
   scope :boosted, -> { where( boosted: true ) }
 
   validates :user, :user_activity, :type_of_evenement, presence: true

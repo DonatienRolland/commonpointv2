@@ -31,9 +31,6 @@
               <div class="userToAdd tab_<%= user[:level] %> " data-user="<%= user[:user_id] %>" id="user_removed_<%= user[:user_id] %>" style="display: flex;">
                 <% set_user = User.find(user[:user_id]) %>
                 <%= render 'shared/avatar_name_stars', user: set_user, level: user[:level]  %>
-                <div class="icon-input">
-                  <i class="fas fa-check"></i>
-                </div>
               </div>
             <% end %>
         </div>
@@ -46,9 +43,6 @@
             <div class="userToRemove hidden" id="user_added_<%= user[:user_id] %>" style="display: flex;" data-user="<%= user[:user_id] %>">
               <% set_user = User.find(user[:user_id]) %>
               <%= render 'shared/avatar_name_stars', user: set_user, level: user[:level]  %>
-              <div class="icon-input">
-                <i class="fas fa-check"></i>
-              </div>
             </div>
           <% end %>
         </div>
