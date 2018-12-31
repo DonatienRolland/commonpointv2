@@ -18,7 +18,7 @@
         <p>je ne participe pas</p>
       <% end %>
     </div>
-    <div class="col-xs-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path %>" data-participant="<%= @participant.id %> ">
+    <div class="col-xs-3 divStatus" id="changingStatus" data-url="<%= update_status_participant_evenement_path %>" data-participant="<%= @participant.id %> ">
       <% if @evenement.user_id == @user.id %>
            <p class="btn-no-border " style="font-size: 25px; cursor: auto;">Organisateur</p>
       <% else %>
