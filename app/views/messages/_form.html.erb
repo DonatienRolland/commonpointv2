@@ -1,5 +1,5 @@
 
-<%= simple_form_for([ evenement, message ], remote: true) do |form| %>
+<%= simple_form_for([ evenement, message ], remote: false) do |form| %>
   <%= form.label :content, label:"Message", class:"form-label", required: false %>
   <%= form.input :content, placeholder: "Publier un message", label: false, class:"form-control" %>
   <%= form.submit "Publier", class:"btn btn-no-border" %>

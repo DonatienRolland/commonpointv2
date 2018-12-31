@@ -1,0 +1,13 @@
+<h2>Salut <%= @user.prenom %></h2>
+
+
+<p>Tu as reçu un nouveau message sur l'événement de <%= @evenement.user.full_name %></p>
+
+<p>Message:</p>
+
+<p><%= @message.content %></p>
+
+
+<%= link_to evenement_url(@evenement) do %>
+  <p style="margin:0">Accéder à l'évenement</p>
+<% end %>

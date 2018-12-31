@@ -39,7 +39,7 @@
         <!-- <#%= link_to admin_company_path(@user.company.id), class: "navbar-wagon-item navbar-wagon-link #{ 'navbar-active' if params[:action] == "index" }" do %> -->
         <i class="fa fa-cog"></i>Admin
         <!-- <#% end %> -->
-        <%= link_to sidekiq_web_path, class: "navbar-wagon-item navbar-wagon-link" do %>
+        <%= link_to sidekiq_web_path, target: true, class: "navbar-wagon-item navbar-wagon-link" do %>
           <i class="fa fa-cog"></i>Sidekiq
         <% end %>
       <% end %>

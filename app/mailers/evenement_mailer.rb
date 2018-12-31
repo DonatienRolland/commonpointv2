@@ -22,4 +22,16 @@ class EvenementMailer < ApplicationMailer
     )
   end
 
+
+  def new_message(message_id, user_id, evenement_id)
+    @evenement = Evenement.find(evenement_id)
+    @user = User.find(user_id)
+    @message = Message.find(message_id)
+    mail(
+      to:       @user.email,
+      subject:  "Nouvelle notification Common Point"
+    )
+
+  end
+
 end

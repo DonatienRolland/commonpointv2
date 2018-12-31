@@ -6,10 +6,11 @@ nouvel événement.</p>
 
 <p> <%= "#{@evenement.user.full_name} vous invite à son évènement
  #{@evenement.activity_title}.
-Détail événement : status: #{@evenement.type_of_evenement} date: #{@evenement.jour} #{@evenement.heur} et lieu: #{@evenement.adresse} " %>
-
-
-TODO
-Je participe / Je participe pas
+Détail événement : status: #{@evenement.type_of_evenement} date: #{@evenement.day_month_hour} et lieu: #{@evenement.adresse} " %>
 
 </p>
+
+
+<%= link_to evenement_url(@evenement) do %>
+  <p style="margin:0">Accéder à l'évenement</p>
+<% end %>

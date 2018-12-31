@@ -14,7 +14,7 @@ class User < ApplicationRecord
     self.format_user_infos
     self.link_to_the_company
   end
-  after_create :send_welcome_email
+  after_create :send_welcome_email, :generate_notification_table
 
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :evenements, dependent: :destroy
 
   # has_many :participants, dependent: :destroy
+  has_one :notification, dependent: :destroy
+  accepts_nested_attributes_for :notification, :reject_if => :all_blank
 
   belongs_to :company
   accepts_nested_attributes_for :company, :reject_if => :all_blank
@@ -84,6 +86,10 @@ class User < ApplicationRecord
       comp = Company.where(email_domain: user_domain).first
       self.company = comp
     end
+  end
+
+  def generate_notification_table
+    Notification.create!(user: self)
   end
 
   private

@@ -62,9 +62,16 @@ class Evenement < ApplicationRecord
 
   def generate_participant(user, participation_status)
     participant = Participant.where(user: user, evenement: self).first
-    if  !participant.present?
+    if !participant.present?
       part = Participant.create!(user: user, evenement: self, participe: participation_status)
-      part.send_invitation_email
+      if part.user != self.user
+        if self.Publique?
+          part.user.notification.invitation_publique ? part.send_invitation_email : ""
+        else
+          part.user.notification.invitation_prive ? part.send_invitation_email : ""
+        end
+      end
+
     end
   end
 

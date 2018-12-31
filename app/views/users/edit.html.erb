@@ -1,5 +1,5 @@
-
 <%= simple_form_for (@user) do |f| %>
+  <%= render 'users/notifications', f: f %>
   <div class="row" style="background-color: white; border: solid 2px #f65324;
     border-radius: 3px;">
     <div class="col-sm-4 col-xs-6 eql-height left-edit">
@@ -27,8 +27,12 @@
       </div>
       <div class="text-center">
         <%= f.button :submit, "Modifier", class:"btn btn-start-order" %>
-
-        <%= link_to "Gérer mes notifications", edit_user_registration_path, class:"btn btn-no-border" %>
+      </div>
+      <div class="text-center">
+        <%= link_to "Mot de passe et compte", edit_user_registration_path, class:"btn-no-border" %>
+        <button type="button" class="btn btn-no-border" data-toggle="modal" data-target="#notificationModal" style="margin: 0;">
+          Gérer mes notification
+        </button>
       </div>
       </div>
       <h4>Mes activités favorites</h4>

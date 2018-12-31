@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [ :update, :edit ] do
+    put 'update_notification', on: :member
     resources :user_activities, only: [ :create, :new ] do
       get 'search', on: :collection
     end

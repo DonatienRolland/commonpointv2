@@ -9,6 +9,7 @@ class MessagesController < ApplicationController
     @message.evenement = @evenement
     @message.participant = @participant
     if @message.save
+      @message.send_to_all_participants(@user)
       respond_to do |format|
         format.html { redirect_to evenement_path(@evenement) }
         format.js  # <-- will render `app/views/messages/create.js.erb`
@@ -23,6 +24,8 @@ class MessagesController < ApplicationController
   end
 
   private
+
+
 
   def message_params
     params.require(:message).permit(:content)

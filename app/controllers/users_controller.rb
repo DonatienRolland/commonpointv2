@@ -3,6 +3,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # @user_activities = @user.user_activities.order('level desc')
     @user_activities = []
+
+    @notification = @user.notification
     # authorize @user
     Activity.are_activities_with(@user).all.order('title ASC').each do |activity|
       activity = {
@@ -21,6 +23,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
+
       flash[:notice] = "User information updated!"
       redirect_to edit_user_path(@user)
     else
@@ -29,9 +32,16 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def update_notification
+    @user = User.find(params[:id])
+    authorize @user
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:prenom, :avatar, :nom, :telephone)
+    params.require(:user).permit(:prenom, :avatar, :nom, :telephone,
+      notification_attributes: [:id, :invitation_prive, :invitation_publique, :message ]
+      )
   end
 end

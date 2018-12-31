@@ -6,5 +6,11 @@
 
 <p><%= "Status: #{@type_of_evenement}" %> </p>
 <p><%= "Activité: #{@evenement.activity_title}"  %> </p>
-<p><%= "Date & heure: #{@evenement.jour} #{@evenement.heur}" %> </p>
+<p><%= "Date & heure: #{@evenement.day_month_hour}" %> </p>
 <p><%= "Lieu: #{@evenement.adresse}"  %> </p>
+
+
+
+<%= link_to evenement_url(@evenement) do %>
+  <p style="margin:0">Accéder à l'évenement</p>
+<% end %>

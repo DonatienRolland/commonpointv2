@@ -21,6 +21,10 @@ class UserPolicy < ApplicationPolicy
     is_user_the_owner_or_admin?
   end
 
+  def update_notification?
+    is_user_the_owner_or_admin?
+  end
+
   def update_status_participant?
     true
   end
