@@ -72,7 +72,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.delivery_method     = :sendgrid
+  config.action_mailer.delivery_method     = :smtp
   # config.action_mailer.sendgrid_settings   = { api_key: ENV['SENDGRID_API_KEY'] }
   config.action_mailer.default_url_options = { host: "commonpointv2.herokuapp.com" }
 
