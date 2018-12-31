@@ -106,6 +106,7 @@ class EvenementsController < ApplicationController
     @user = @evenement.user
     if @evenement.update(evenement_params)
       update_participants(@evenement, current_user)
+      @evenement.send_confirmation_of_creation_email
       # TODO verifier si la seconde date s'energriser
       if params[:second_date].present? && params[:second_date] != ""
         create_a_second_evenement_with(params[:second_date],params[:second_heur] , @evenement, current_user)
@@ -225,12 +226,14 @@ private
       new_evenement = Evenement.new(evenement.attributes.merge(jour: date, heur: heure ))
       new_evenement.id = nil
       new_evenement.save
+      new_evenement.send_confirmation_of_creation_email
       evenement.participants.each do |participant|
         new_evenement.generate_participant(participant.user, participant.user === current_user ? true : nil)
       end
       evenement.materiels.each do |materiel|
         equi = Materiel.create!(materiel.attributes.merge(id: nil, evenement: new_evenement))
       end
+
     end
   end
 

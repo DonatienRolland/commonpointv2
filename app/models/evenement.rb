@@ -36,7 +36,6 @@ class Evenement < ApplicationRecord
 
   geocoded_by :adresse
   after_validation :geocode, if: :will_save_change_to_adresse?
-  after_create :send_confirmation_of_creation_email
   before_save :set_group_of_point
 
   def second_step
@@ -64,7 +63,8 @@ class Evenement < ApplicationRecord
   def generate_participant(user, participation_status)
     participant = Participant.where(user: user, evenement: self).first
     if  !participant.present?
-      Participant.create!(user: user, evenement: self, participe: participation_status)
+      part = Participant.create!(user: user, evenement: self, participe: participation_status)
+      part.send_invitation_email
     end
   end
 
@@ -103,10 +103,10 @@ class Evenement < ApplicationRecord
     end
   end
 
-private
+# private
 
 
   def send_confirmation_of_creation_email
-    EvenementMailer.creation_confirmation(self.id, self.user.id).deliver_now
+    EvenementMailer.creation_confirmation(self.id, self.user.id).deliver_later
   end
 end
