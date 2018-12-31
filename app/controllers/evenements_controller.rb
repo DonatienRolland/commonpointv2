@@ -122,6 +122,8 @@ class EvenementsController < ApplicationController
   def update_status_participant
     @evenement = Evenement.find(params[:id])
     @user = @evenement.user
+    p "find evenement ok #{@evenement.id} et user #{@user.id}"
+    p "params ====>>>>  #{params}"
     if !params[:status] || params[:status] == "false"
       materiels = Materiel.where(participant_id: params[:participant_id], evenement_id: params[:id])
       materiels.each do |materiel|
@@ -129,7 +131,9 @@ class EvenementsController < ApplicationController
         materiel.save
       end
     end
-    Participant.where(id: params[:participant_id]).update_all(participe: params[:status] )
+
+    participant = Participant.find(params[:participant_id]).update(participe: params[:status] )
+    p "#{participant}"
     @evenement.check_if_full
     head :ok
     authorize @user

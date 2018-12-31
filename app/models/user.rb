@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :prenom, :nom, presence: true
 
+
   EMAIL_FORMAT = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: EMAIL_FORMAT }, uniqueness: true
 
@@ -13,6 +14,7 @@ class User < ApplicationRecord
     self.format_user_infos
     self.link_to_the_company
   end
+  after_create :send_welcome_email
 
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
@@ -31,7 +33,7 @@ class User < ApplicationRecord
   def his_avatar
     init1 = self.prenom.split(//).first
     init2 = self.nom.split(//).first
-    init = init1 + init2
+    init = "#{init1}.#{init2}."
   end
 
   def format_user_infos
@@ -82,5 +84,11 @@ class User < ApplicationRecord
       comp = Company.where(email_domain: user_domain).first
       self.company = comp
     end
+  end
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
   end
 end

@@ -132,7 +132,30 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
+#prive-show{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  .avatars {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 400px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .avatar-square {
+    border-radius: 50%;
+    height: 45px !important;
+    width: 45px !important;
+    p {
+      font-size: 20px !important;
+    }
+  }
+}
 
 #gridParticipantModal {
   display: grid;

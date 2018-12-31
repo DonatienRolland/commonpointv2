@@ -36,7 +36,7 @@
         <% end %>
       </div>
     </div>
-    <div class="col-lg-3 col-sm-3" id="changingStatus" data-url="<%= update_status_participant_evenement_path(evenement) %>" data-participant="<%= @user.is_participant?(evenement).id %> " style=" display: flex; align-items: center; justify-content: center;">
+    <div class="col-lg-3 col-sm-3 divStatus" data-url="<%= update_status_participant_evenement_path(evenement) %>" data-participant="<%= @user.is_participant?(evenement).id %> " style=" display: flex; align-items: center; justify-content: center;">
       <% if evenement.user.id == @user.id %>
         <p class="btn-no-border" style="font-size: 25px">Organisateur</p>
       <% else %>

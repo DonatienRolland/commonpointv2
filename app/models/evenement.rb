@@ -36,7 +36,7 @@ class Evenement < ApplicationRecord
 
   geocoded_by :adresse
   after_validation :geocode, if: :will_save_change_to_adresse?
-
+  after_create :send_confirmation_of_creation_email
   before_save :set_group_of_point
 
   def second_step
@@ -101,5 +101,12 @@ class Evenement < ApplicationRecord
     if !self.heur.nil?
       self.heur.strftime("%H:%M")
     end
+  end
+
+private
+
+
+  def send_confirmation_of_creation_email
+    EvenementMailer.creation_confirmation(self.id, self.user.id).deliver_now
   end
 end

@@ -9,6 +9,9 @@ class Participant < ApplicationRecord
   scope :are_coming, -> { where(participe: true)}
   # before_destroy :uncheck_materiel
 
+  after_create :send_invitation_email
+
+
   def uncheck_materiel
     self.materiels.each do |materiel|
       materiel.participant_id = nil
@@ -16,6 +19,11 @@ class Participant < ApplicationRecord
     end
   end
 
+  private
+
+  def send_invitation_email
+     EvenementMailer.invitation_evenement(self.user.id, self.evenement.id).deliver_now
+  end
 
 end
 

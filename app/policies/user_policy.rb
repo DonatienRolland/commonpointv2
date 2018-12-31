@@ -22,7 +22,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update_status_participant?
-    Participant.where(user_id: record.id).count > 1 || user.admin?
+    true
   end
 
   def destroy?

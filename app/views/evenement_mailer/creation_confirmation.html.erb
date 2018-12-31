@@ -1,0 +1,10 @@
+
+<h1>Bonjour <%= @user.prenom %></h1>
+
+<p>Ton événement à bien été créé, voici le récapitulatif</p>
+
+
+<p><%= "Status: #{@type_of_evenement}" %> </p>
+<p><%= "Activité: #{@evenement.activity_title}"  %> </p>
+<p><%= "Date & heure: #{@evenement.jour} #{@evenement.heur}" %> </p>
+<p><%= "Lieu: #{@evenement.adresse}"  %> </p>

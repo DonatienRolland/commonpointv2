@@ -1,0 +1,20 @@
+<h1>Bonjour <%= @user.prenom %></h1>
+
+<p>Vous venez d’être invité à un
+nouvel événement.</p>
+
+
+<p><%= "Status: #{@type_of_evenement}" %> </p>
+<p><%= "Activité: #{@evenement.activity_title}"  %> </p>
+<p><%= "Date & heure: #{@evenement.jour} #{@evenement.heur}" %> </p>
+<p><%= "Lieu: #{@evenement.adresse}"  %> </p>
+
+<p> <%= "#{@evenement.user.full_name} vous invite à son évènement
+ #{@evenement.activity_title}.
+Détail événement : {@evenement.type_of_evenement} #{@evenement.jour} #{@evenement.heur} #{@evenement.adresse} " %>
+
+
+TODO
+Je participe / Je participe pas
+
+</p>
