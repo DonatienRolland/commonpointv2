@@ -50,5 +50,5 @@ gem "chartkick"
 
 gem 'forest_liana'
 
-gem 'activeadmin', github: 'activeadmin/activeadmin'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+# gem 'activeadmin', github: 'activeadmin/activeadmin'
+# gem 'inherited_resources', github: 'activeadmin/inherited_resources'
